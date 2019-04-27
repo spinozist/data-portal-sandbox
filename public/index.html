@@ -40,18 +40,19 @@
        border: null;
      }
 
-     .jumbotron {
+     {% comment %} .jumbotron {
       background-color: white;
       border-radius: 0;
-     }
+     } {% endcomment %}
 
      .container {
        height: 100vh;
      }
      
      body {
-       text-align: center;
+       {% comment %} text-align: center; {% endcomment %}
        background-color: lightgrey;
+       height: 100%;
      }
 
      #guided-search-wrapper, #profile-wrapper {
@@ -64,14 +65,27 @@
     #data-wrapper {
       background-color: white;
       height: 100vh;
+      padding: 20px;
     }
 
     .leaflet-container {
-      height: 100%;
+      height: 80%;
       width: 60%;
       float: left;
       border-radius: 5px;
-}
+    }
+
+    .data-selector {
+     {% comment %} text-align: left; {% endcomment %}
+     width: 100%;
+     heigh: 5%;
+     margin-bottom: 10px;
+    }
+{% comment %} 
+    .geo-selector {
+      height: 100%,
+      background-color: 
+    } {% endcomment %}
 
     </style>
   </head>

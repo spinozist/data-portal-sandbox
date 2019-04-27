@@ -1,8 +1,9 @@
 .table-container {
     float: right;
-    height: 50%;
-    width: 40%;
-    background-color: blanchedalmond;
-    border: 2px solid black;
+    height: 80%;
+    width: 39%;
+    margin-left: 1%;
+    /* background-color: blanchedalmond; */
+    /* border: 2px solid black; */
     overflow: scroll;
 }

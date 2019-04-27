@@ -8,13 +8,13 @@ import colormap from 'colormap';
 const Map = props => {
 
   const colors = colormap({
-    colormap: 'cool',
+    colormap: 'temperature',
     nshades: 10,
     format: 'hex',
     alpha: 1
   });
 
-  console.log(props.data.geojson)
+  // console.log(props.data.geojson)
 
   
   const valueArray = props.data.geojson ? props.data.geojson
@@ -24,8 +24,8 @@ const Map = props => {
   const minValue = valueArray !== null ? Math.min(...valueArray) : 'Value array not load yet';
 
   // console.log(valueArray);
-  // console.log(maxValue);
-  // console.log(minValue);
+  console.log(maxValue);
+  console.log(minValue);
   // console.log(maxValue - minValue);
   // console.log(props.data.geographyFilter);
   // console.log(props.data.geographyFilterValue);
@@ -35,7 +35,7 @@ const Map = props => {
   return (
     <LeafletMap
       center={[33.8, -84.3]}
-      zoom={10}
+      zoom={9}
       maxZoom={18}
       attributionControl={true}
       zoomControl={true}

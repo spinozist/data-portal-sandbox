@@ -1,45 +1,51 @@
 import React, { useState, useEffect } from "react";
+import GeoSelector from "../GeoSelector";
+import VarSelector from "../VarSelector";
 import Map from "../Map";
 import Table from '../Table';
+import ExampleChart from '../Charts/Example'
 import API from "../../utils/API";
-// import Table from '../components/tables';
-// import ExampleChart from "../components/charts/ExampleChart"
+import dataConfig from "../../config/dataConfig";
+import './style.css';
 
 
 
-const DataExplorer = () => {
+const DataExplorer = props => {
 
-  const [geography, setGeography] = useState('2010 Tracts');
+  const geoOptions = dataConfig.map(configObject => configObject.name);
+
+  console.log(geoOptions);
+
+  const [geography, setGeography] = useState(geoOptions[0]);
+
+  const selectedDefaults = dataConfig.filter(configObject => configObject.name === geography);
+
+  const defaultState = selectedDefaults[0];
 
   const [layoutState, setLayout] = useState({
     mapview: true,
     chartview: false,
     tableview: true,
-  })
+  });
+
 
   const [dataState, setDataState] = useState({
     geojson: null,
-    selectedVariable: 'nhw_or10',
-    normalizedBy: 'totpop10',
-    geographyFilter: 'PLNG_REGIO',
-    geographyFilterValue: 'ARC 10',
+    selectedVariable: defaultState.defaultVariable,
+    normalizedBy: defaultState.defaultNormalizer,
+    geographyFilter: defaultState.defaultFilterType,
+    geographyFilterValue: defaultState.defaultFilterType,
   });
 
-  const [hoverID, setHoverID] = useState('13083040101');
+  const [hoverID, setHoverID] = useState(selectedDefaults[0].defaultHoverID);
 
-  const geojsonURLs = {
-    '2000 Tracts': "https://opendata.arcgis.com/datasets/03137f764f2b4b89b221ce7caf236456_50.geojson",
-    '2010 Tracts' : "https://opendata.arcgis.com/datasets/2e73cc4a02a441ba968e6a63a8b526f5_56.geojson",
-    'Places' : "https://opendata.arcgis.com/datasets/34520575dfc34b8cac783caff702b8cc_58.geojson",
-    'Counties' : "https://opendata.arcgis.com/datasets/dc20713282734a73abe990995de40497_68.geojson",
-  };
 
   const setData = url => {
     // console.log(url)
 
     API.getData(url)
       .then(res => {
-      // console.log(res.data.features)
+      console.log(res.data.features)
       setDataState( {
         ...dataState,
         geojson: res.data.features 
@@ -53,13 +59,37 @@ const DataExplorer = () => {
     setHoverID(featureID);
   }
 
+  const handleGeoChange = geoName => {
+    console.log(geoName);
+    setGeography(geoName);
+    console.log(geography);
+  }
+
+  const handleVarChange = selectedVar => {
+    console.log(selectedVar);
+    setDataState({
+      ...dataState,
+      selectedVariable: selectedVar
+    })
+    // setGeography(geoName);
+    // console.log(geography);
+  }
+
   // const 
 
-  useEffect(() => {setData(geojsonURLs[geography])}, [geography]); 
+  useEffect(() => {setData(selectedDefaults[0].url)}, [geography]); 
 
 
   return (
-    <div className="jumbotron" id="data-wrapper">
+    <div className="data-wrapper" id="data-wrapper">
+      <div className="data-selector">
+        <GeoSelector
+          handleGeoChange={handleGeoChange} />
+        <VarSelector
+          selectedGeo={geography}
+          handleVarChange={handleVarChange} />
+      </div>
+      <div id="banner">Data ARC</div>
       {  layoutState.mapview ?
         <Map
           handleHoverID={handleHover}
@@ -69,6 +99,13 @@ const DataExplorer = () => {
       }
       {  layoutState.tableview ?
         <Table
+          hoverID={hoverID} 
+          data={dataState}
+        />
+        : null
+      }
+      {  layoutState.chartview ?
+        <ExampleChart
           hoverID={hoverID} 
           data={dataState}
         />

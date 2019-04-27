@@ -1,3 +1,16 @@
 #map-container {
     width: 50%;
 }
+
+#banner {
+    color: whitesmoke;
+    text-align: center;
+    background-color: black;
+    position: absolute;
+    font-size: 6em;
+    float: right;
+    right: 20px;
+    top: -20px;
+    width: 30%;
+    border-radius: 20px;
+}
