@@ -8,11 +8,11 @@ import colormap from 'colormap';
 const Map = props => {
 
   const colors = colormap({
-    colormap: 'temperature',
+    colormap: 'viridis',
     nshades: 10,
     format: 'hex',
     alpha: 1
-  });
+  }).reverse();
 
   // console.log(props.data.geojson)
 

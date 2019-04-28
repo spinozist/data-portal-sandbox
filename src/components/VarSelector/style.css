@@ -1,5 +1,6 @@
-#active-button {
+#active-var-button {
     border: solid;
     border-color: orangered;
     opacity: 1;
+    border-width: 3px;
 }

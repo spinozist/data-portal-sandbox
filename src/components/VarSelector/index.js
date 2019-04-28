@@ -28,8 +28,8 @@ const VarSelector = props => {
             variable => 
                 <button
                 onClick={event => props.handleVarChange(variable)} 
-                className="var-selector"
-                id={variable === currentSelection ? 'active-button' : null }
+                className="var-selector" 
+                id={variable === currentSelection ? 'active-var-button' : null }
                 style={{
                     fontSize: '.8em',
                     height: '40px',

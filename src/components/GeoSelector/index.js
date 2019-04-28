@@ -1,5 +1,6 @@
 import React from 'react';
 import dataConfig from "../../config/dataConfig";
+import "./style.css"
 
 
 const GeoSelector = props => {
@@ -12,6 +13,7 @@ const GeoSelector = props => {
                 <button
                 onClick={event => props.handleGeoChange(geoObject.name)} 
                 className="geo-selector"
+                id="active-geo-button"
                 style={{
                     float: 'left',
                     fontSize: '1.5em',
@@ -21,6 +23,7 @@ const GeoSelector = props => {
                     color: 'white',
                     margin: '-10px 10px 10px 10px',
                     borderRadius: "50%",
+                    outline: 'none'
                 }}
                 >
                     {geoObject.name}
