@@ -11,24 +11,47 @@ const dataConfig = [
     //     filterType: [],
     //     filterValue: [] 
     // },
+    // {
+    //     name: "Tracts 2010",
+    //     url: "https://opendata.arcgis.com/datasets/2e73cc4a02a441ba968e6a63a8b526f5_56.geojson",
+    //     defaultVariable: 'nhw_or10',
+    //     defaultNormalizer: 'totpop10',
+    //     defaultFilterType: null,
+    //     defaultFilterValue: 'ARC 10',
+    //     defaultHoverID: "13221960100",
+    //     variableOptions: [
+    //         'nhw_or10',
+    //         "aian_or10",
+    //         "asia_or10",
+    //         "bl_or10",
+    //         "hisp_lat10"],
+    //     normalizerOptions: [],
+    //     filterType: [],
+    //     filterValue: []
+    // },
     {
-        name: "Tracts 2010",
-        url: "https://opendata.arcgis.com/datasets/2e73cc4a02a441ba968e6a63a8b526f5_56.geojson",
-        defaultVariable: 'nhw_or10',
-        defaultNormalizer: 'totpop10',
+        name: "Income 2016",
+        url: "https://opendata.arcgis.com/datasets/b15bc070086f48a5ac8abc4b33b0b464_238.geojson",
+        defaultVariable: "Median_HH_income",
+        defaultNormalizer: null,
         defaultFilterType: null,
         defaultFilterValue: 'ARC 10',
-        defaultHoverID: "13221960100",
+        defaultHoverID: "13013180401",
         variableOptions: [
-            'nhw_or10',
-            "aian_or10",
-            "asia_or10",
-            "bl_or10",
-            "hisp_lat10"],
+            "Median_HH_income",
+            "Median_HH_Income_2000",
+            "Pct_HH_income_less_35k",
+            "Pct_HH_income_35k_75k",
+            "Pct_HH_income_75k_200k",
+            "Pct_HH_income_200k_more"  
+        ],
         normalizerOptions: [],
         filterType: [],
         filterValue: []
-    }
+    },
+
+
+
 ];
 
 export default dataConfig;

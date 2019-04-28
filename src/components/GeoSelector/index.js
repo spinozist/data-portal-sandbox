@@ -13,13 +13,14 @@ const GeoSelector = props => {
                 onClick={event => props.handleGeoChange(geoObject.name)} 
                 className="geo-selector"
                 style={{
+                    float: 'left',
                     fontSize: '1.5em',
-                    height: '100px',
-                    width: '100px',
+                    height: '120px',
+                    width: '120px',
                     backgroundColor: 'black',
                     color: 'white',
-                    margin: '5px',
-                    borderRadius: "50%"
+                    margin: '-10px 10px 10px 10px',
+                    borderRadius: "50%",
                 }}
                 >
                     {geoObject.name}

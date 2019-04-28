@@ -31,6 +31,7 @@ const DataExplorer = props => {
 
   const [dataState, setDataState] = useState({
     geojson: null,
+    geography: geoOptions[0],
     selectedVariable: defaultState.defaultVariable,
     normalizedBy: defaultState.defaultNormalizer,
     geographyFilter: defaultState.defaultFilterType,
@@ -61,8 +62,10 @@ const DataExplorer = props => {
 
   const handleGeoChange = geoName => {
     console.log(geoName);
-    setGeography(geoName);
-    console.log(geography);
+    setDataState({
+      ...dataState,
+      geography: geoName});
+    console.log(dataState.geography);
   }
 
   const handleVarChange = selectedVar => {
@@ -86,6 +89,7 @@ const DataExplorer = props => {
         <GeoSelector
           handleGeoChange={handleGeoChange} />
         <VarSelector
+          currentSelection={dataState.selectedVariable}
           selectedGeo={geography}
           handleVarChange={handleVarChange} />
       </div>

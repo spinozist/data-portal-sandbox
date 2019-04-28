@@ -1,23 +1,25 @@
 import React from 'react';
 import dataConfig from "../../config/dataConfig";
 import colormap from 'colormap';
+import './style.css';
 
 const VarSelector = props => {
 
 
+    const currentSelection = props.currentSelection;
 
     const geoObject = dataConfig.filter(geoObject => geoObject.name === props.selectedGeo);
     const varArray = geoObject[0].variableOptions;
 
     const colors = colormap({
-        colormap: 'viridis',
+        colormap: 'bone',
         nshades: 9,
         format: 'hex',
         alpha: 1
       });
 
-    console.log(geoObject);
-    console.log(varArray);
+    // console.log(geoObject);
+    // console.log(varArray);
 
     return (
 
@@ -27,15 +29,17 @@ const VarSelector = props => {
                 <button
                 onClick={event => props.handleVarChange(variable)} 
                 className="var-selector"
+                id={variable === currentSelection ? 'active-button' : null }
                 style={{
                     fontSize: '.8em',
-                    height: '50px',
-                    width: '80px',
+                    height: '40px',
+                    width: '180px',
                     backgroundColor: colors[varArray.indexOf(variable)],
                     color: 'white',
-                    margin: '5px',
-                    borderRadius: "10%",
-                    outline: 'none'
+                    margin: '0px 5px 5px 0px',
+                    borderRadius: "10px",
+                    outline: 'none',
+                    lineHeigt: '40px',
                 }}
                 >
                     {variable}

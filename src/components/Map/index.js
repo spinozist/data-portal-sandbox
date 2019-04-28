@@ -19,7 +19,11 @@ const Map = props => {
   
   const valueArray = props.data.geojson ? props.data.geojson
     .filter(feature => feature.properties[props.data.selectedVariable])
-    .map(feature => feature.properties[props.data.selectedVariable]/feature.properties[props.data.normalizedBy]) : null;
+    .map(feature => {
+      const variable = feature.properties[props.data.selectedVariable];
+      const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
+
+      return variable/normalizer}) : null;
   const maxValue = valueArray !== null ? Math.max(...valueArray) : 'Value array not load yet';
   const minValue = valueArray !== null ? Math.min(...valueArray) : 'Value array not load yet';
 
@@ -68,20 +72,28 @@ const Map = props => {
             feature.properties[props.data.selectedVariable] > 0 && feature.properties[props.data.geographyFilter] === props.data.geographyFilterValue ) :
             props.data.geojson.filter(feature => feature.properties[props.data.selectedVariable] > 0)}
         style={feature => {
+          const variable=feature.properties[props.data.selectedVariable];
+          const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
+
           // console.log(props.data.selectedVariable);
-          const value = feature.properties[props.data.selectedVariable]/feature.properties[props.data.normalizedBy];
+          const value = variable/normalizer;
+          const range = maxValue - minValue;
+          const binningRatio = value/range;
           // const opacity = value;
-          const color = colors[Math.floor(value*10)]
+          const color = colors[Math.floor(binningRatio*10)]
 
           return ({
             color: '#1a1d62',
             weight: 0.4,
             fillColor: color,
-            fillOpacity: .5,
+            fillOpacity: .7,
           })
         }}
         onEachFeature={(feature, layer) => {
-          const value = feature.properties[props.data.selectedVariable]/feature.properties[props.data.normalizedBy];
+          const variable=feature.properties[props.data.selectedVariable];
+          const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
+
+          const value = variable/normalizer;
           const featureID = feature.properties['GEOID10'];
           // console.log(String(value))
           layer.bindTooltip(String(value))
