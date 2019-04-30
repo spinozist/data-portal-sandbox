@@ -15,7 +15,8 @@ const dataConfig = [
             "hisp_lat10"],
         normalizerOptions: [],
         filterType: [],
-        filterValue: []
+        filterValue: [],
+        hoverField: 'GEOID10'
     },
     {
         name: "Income by ARC Tracts 2016",
@@ -35,7 +36,8 @@ const dataConfig = [
         ],
         normalizerOptions: [],
         filterType: [],
-        filterValue: []
+        filterValue: [],
+        hoverField: 'GEOID10'
     },
     {
         name: "Poverty by ARC Zips 2015",
@@ -68,21 +70,22 @@ const dataConfig = [
     //     filterType: [],
     //     filterValue: []
     // },
-    {
-        name: "H+T Affordability Type 3",
-        url: "https://opendata.arcgis.com/datasets/ff2db8857ed040e287f14cba5791a363_184.geojson",
-        defaultVariable: 'Tp3_HousTranspCosts_Pct_Income',
-        defaultNormalizer: null,
-        defaultFilterType: null,
-        defaultFilterValue: 'ARC 10',
-        defaultHoverID: "13013180401",
-        variableOptions: [
-            'Tp3_HousTranspCosts_Pct_Income'
-        ],
-        normalizerOptions: [],
-        filterType: [],
-        filterValue: []
-    },
+    // {
+    //     name: "H+T Affordability Type 3",
+    //     url: "https://opendata.arcgis.com/datasets/ff2db8857ed040e287f14cba5791a363_184.geojson",
+    //     defaultVariable: 'Tp3_HousTranspCosts_Pct_Income',
+    //     defaultNormalizer: null,
+    //     defaultFilterType: null,
+    //     defaultFilterValue: 'ARC 10',
+    //     defaultHoverID: "13013180401",
+    //     variableOptions: [
+    //         'Tp3_HousTranspCosts_Pct_Income',
+    //         'Tp3_AnnualVehMilesTraveled'
+    //     ],
+    //     normalizerOptions: [],
+    //     filterType: [],
+    //     filterValue: []
+    // },
 
 
 

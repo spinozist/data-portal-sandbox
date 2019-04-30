@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import GeoSelector from "../GeoSelector";
 import VarSelector from "../VarSelector";
 import Map from "../Map/MapContainer";
-// import Table from '../Table';
+import Table from '../Table';
 import ExampleChart from '../Charts/Example'
 import API from "../../utils/API";
 import dataConfig from "../../config/dataConfig";
@@ -38,7 +38,7 @@ const DataExplorer = props => {
     geographyFilterValue: defaultDataConfig.defaultFilterValue,
   });
 
-  const [hoverID, setHoverID] = useState(selectedDefaults[0].defaultHoverID);
+  const [hoverID, setHoverID] = useState(defaultDataConfig.defaultHoverID);
 
 
   const setData = dataConfigObject => {
@@ -56,6 +56,7 @@ const DataExplorer = props => {
         normalizedBy: dataConfigObject.defaultNormalizer,
         geographyFilter: dataConfigObject.defaultFilterType,
         geographyFilterValue: dataConfigObject.defaultFilterValue,
+        hoverField: defaultDataConfig.hoverField
      
       })
     })
@@ -106,10 +107,11 @@ const DataExplorer = props => {
         <Map
           handleHoverID={handleHover}
           data={dataState}
-        /> 
+        />
         : null
       }
-      <ColorRamp />
+      <ColorRamp className="colorramp" />
+
       {/* {  layoutState.tableview ?
         <Table
           hoverID={hoverID} 

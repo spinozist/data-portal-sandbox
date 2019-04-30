@@ -25,9 +25,9 @@ const GeoJSONLayer = props => {
     const maxValue = valueArray !== null ? Math.max(...valueArray) : 'Value array not load yet';
     const minValue = valueArray !== null ? Math.min(...valueArray) : 'Value array not load yet';
 
-    console.log(valueArray);
+    // console.log(valueArray);
     
-    // console.log(props.data)
+    console.log(props.data)
       console.log(maxValue);
       console.log(minValue);
 
@@ -64,7 +64,7 @@ const GeoJSONLayer = props => {
           const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
 
           const value = variable/normalizer;
-          const featureID = feature.properties['GEOID10'];
+          const featureID = feature.properties[props.data.hoverField];
           // console.log(String(value))
           layer.bindTooltip(String(value))
             .on('mouseover', e => {

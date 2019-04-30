@@ -3,7 +3,6 @@ import { Map as LeafletMap, TileLayer, LayersControl } from 'react-leaflet';
 import GeoJSONLayer from '../Layers/GeoJSONLayer';
 import OverlayLayer from '../Layers/OverlayLayer';
 import API from "../../../utils/API";
-import ColorRamp from '../Legends/ColorRamp';
 
 const Map = props => {
 
