@@ -1,36 +1,24 @@
 const dataConfig = [
-    // {
-    //     name: "Tracts 2000",
-    //     url: "https://opendata.arcgis.com/datasets/03137f764f2b4b89b221ce7caf236456_50.geojson",
-    //     defaultVariable: 'SQ_MILES',
-    //     defaultNormalizer: 'SQ_MILES',
-    //     defaultFilterType: null,
-    //     defaultFilterValue: 'ARC 10',
-    //     variableOptions: [],
-    //     normalizerOptions: [],
-    //     filterType: [],
-    //     filterValue: [] 
-    // },
-    // {
-    //     name: "Tracts 2010",
-    //     url: "https://opendata.arcgis.com/datasets/2e73cc4a02a441ba968e6a63a8b526f5_56.geojson",
-    //     defaultVariable: 'nhw_or10',
-    //     defaultNormalizer: 'totpop10',
-    //     defaultFilterType: null,
-    //     defaultFilterValue: 'ARC 10',
-    //     defaultHoverID: "13221960100",
-    //     variableOptions: [
-    //         'nhw_or10',
-    //         "aian_or10",
-    //         "asia_or10",
-    //         "bl_or10",
-    //         "hisp_lat10"],
-    //     normalizerOptions: [],
-    //     filterType: [],
-    //     filterValue: []
-    // },
     {
-        name: "Income 2016",
+        name: "Race by GA Tracts  2010",
+        url: "https://opendata.arcgis.com/datasets/2e73cc4a02a441ba968e6a63a8b526f5_56.geojson",
+        defaultVariable: 'nhw_or10',
+        defaultNormalizer: 'totpop10',
+        defaultFilterType: null,
+        defaultFilterValue: 'ARC 10',
+        defaultHoverID: "13221960100",
+        variableOptions: [
+            'nhw_or10',
+            "aian_or10",
+            "asia_or10",
+            "bl_or10",
+            "hisp_lat10"],
+        normalizerOptions: [],
+        filterType: [],
+        filterValue: []
+    },
+    {
+        name: "Income by ARC Tracts 2016",
         url: "https://opendata.arcgis.com/datasets/b15bc070086f48a5ac8abc4b33b0b464_238.geojson",
         defaultVariable: "Median_HH_income",
         defaultNormalizer: null,
@@ -44,6 +32,52 @@ const dataConfig = [
             "Pct_HH_income_35k_75k",
             "Pct_HH_income_75k_200k",
             "Pct_HH_income_200k_more"  
+        ],
+        normalizerOptions: [],
+        filterType: [],
+        filterValue: []
+    },
+    {
+        name: "Poverty by ARC Zips 2015",
+        url: "https://opendata.arcgis.com/datasets/b50e7ea5994e4a57813cadce1ac2618c_318.geojson",
+        defaultVariable: 'Percent_Population_in_poverty',
+        defaultNormalizer: null,
+        defaultFilterType: null,
+        defaultFilterValue: 'ARC 10',
+        defaultHoverID: "13013180401",
+        variableOptions: [
+            'Percent_Population_in_poverty',
+            'Pct_Pop_65older_in_Poverty',
+            'Pct_Pop_18_64_Years_in_Poverty',
+            'Pct_Pop_under18_in_Poverty'
+        ],
+        normalizerOptions: [],
+        filterType: [],
+        filterValue: []
+    },
+    // {
+    //     name: "School Suspensions 2015 to 2017",
+    //     url: "https://opendata.arcgis.com/datasets/58a2c741395743b89528acd952d1964c_254.geojson",
+    //     defaultVariable: 'Pct_3plus_Days_OSS_2017',
+    //     defaultNormalizer: null,
+    //     defaultFilterType: null,
+    //     defaultFilterValue: 'ARC 10',
+    //     defaultHoverID: "13013180401",
+    //     variableOptions: [],
+    //     normalizerOptions: [],
+    //     filterType: [],
+    //     filterValue: []
+    // },
+    {
+        name: "H+T Affordability Type 3",
+        url: "https://opendata.arcgis.com/datasets/ff2db8857ed040e287f14cba5791a363_184.geojson",
+        defaultVariable: 'Tp3_HousTranspCosts_Pct_Income',
+        defaultNormalizer: null,
+        defaultFilterType: null,
+        defaultFilterValue: 'ARC 10',
+        defaultHoverID: "13013180401",
+        variableOptions: [
+            'Tp3_HousTranspCosts_Pct_Income'
         ],
         normalizerOptions: [],
         filterType: [],

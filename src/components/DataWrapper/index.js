@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import GeoSelector from "../GeoSelector";
 import VarSelector from "../VarSelector";
-import Map from "../Map";
-import Table from '../Table';
+import Map from "../Map/MapContainer";
+// import Table from '../Table';
 import ExampleChart from '../Charts/Example'
 import API from "../../utils/API";
 import dataConfig from "../../config/dataConfig";
 import './style.css';
+import ColorRamp from "../Map/Legends/ColorRamp";
 
 
 
@@ -14,13 +15,13 @@ const DataExplorer = props => {
 
   const geoOptions = dataConfig.map(configObject => configObject.name);
 
-  console.log(geoOptions);
+  // console.log(geoOptions);
 
   const [geography, setGeography] = useState(geoOptions[0]);
 
   const selectedDefaults = dataConfig.filter(configObject => configObject.name === geography);
 
-  const defaultState = selectedDefaults[0];
+  const defaultDataConfig = selectedDefaults[0];
 
   const [layoutState, setLayout] = useState({
     mapview: true,
@@ -31,41 +32,45 @@ const DataExplorer = props => {
 
   const [dataState, setDataState] = useState({
     geojson: null,
-    geography: geoOptions[0],
-    selectedVariable: defaultState.defaultVariable,
-    normalizedBy: defaultState.defaultNormalizer,
-    geographyFilter: defaultState.defaultFilterType,
-    geographyFilterValue: defaultState.defaultFilterType,
+    selectedVariable: defaultDataConfig.defaultVariable,
+    normalizedBy: defaultDataConfig.defaultNormalizer,
+    geographyFilter: defaultDataConfig.defaultFilterType,
+    geographyFilterValue: defaultDataConfig.defaultFilterValue,
   });
 
   const [hoverID, setHoverID] = useState(selectedDefaults[0].defaultHoverID);
 
 
-  const setData = url => {
+  const setData = dataConfigObject => {
     // console.log(url)
 
-    API.getData(url)
+    API.getData(dataConfigObject.url)
       .then(res => {
-      console.log(res.data.features)
+      // console.log(res.data.features)
       setDataState( {
-        ...dataState,
-        geojson: res.data.features 
+        // ...dataState,
+        // pass other data config values here insteade of dataState
+        geography: geography,
+        geojson: res.data.features,
+        selectedVariable: dataConfigObject.defaultVariable,
+        normalizedBy: dataConfigObject.defaultNormalizer,
+        geographyFilter: dataConfigObject.defaultFilterType,
+        geographyFilterValue: dataConfigObject.defaultFilterValue,
+     
       })
     })
       .catch(err => console.log(err))
   }
 
   const handleHover = featureID => {
-    console.log(featureID)
+    // console.log(featureID)
     setHoverID(featureID);
   }
 
   const handleGeoChange = geoName => {
     console.log(geoName);
-    setDataState({
-      ...dataState,
-      geography: geoName});
-    console.log(dataState.geography);
+    setGeography(geoName);
+    console.log(geography);
   }
 
   const handleVarChange = selectedVar => {
@@ -80,14 +85,17 @@ const DataExplorer = props => {
 
   // const 
 
-  useEffect(() => {setData(selectedDefaults[0].url)}, [geography]); 
+  useEffect(() => {setData(defaultDataConfig)}, [geography]); 
 
 
   return (
     <div className="data-wrapper" id="data-wrapper">
       <div className="data-selector">
+        <div id="geo-selector">
         <GeoSelector
+          currentGeo={geography}
           handleGeoChange={handleGeoChange} />
+        </div>
         <VarSelector
           currentSelection={dataState.selectedVariable}
           selectedGeo={geography}
@@ -101,13 +109,14 @@ const DataExplorer = props => {
         /> 
         : null
       }
-      {  layoutState.tableview ?
+      <ColorRamp />
+      {/* {  layoutState.tableview ?
         <Table
           hoverID={hoverID} 
           data={dataState}
         />
         : null
-      }
+      } */}
       {  layoutState.chartview ?
         <ExampleChart
           hoverID={hoverID} 

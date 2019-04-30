@@ -29,20 +29,18 @@ const VarSelector = props => {
                 <button
                 onClick={event => props.handleVarChange(variable)} 
                 className="var-selector" 
-                id={variable === currentSelection ? 'active-var-button' : null }
+                id={variable === currentSelection ? 'active-var-button' : 'inactive-var-button' }
                 style={{
-                    fontSize: '.8em',
-                    height: '40px',
-                    width: '180px',
-                    backgroundColor: colors[varArray.indexOf(variable)],
+                    float: 'right',
                     color: 'white',
+                    backgroundColor: colors[varArray.indexOf(variable)],
                     margin: '0px 5px 5px 0px',
                     borderRadius: "10px",
                     outline: 'none',
                     lineHeigt: '40px',
                 }}
                 >
-                    {variable}
+                    {variable.replace(/_/g," ")}
                 </button>) : null
 
         // <select>

@@ -14,3 +14,9 @@
     width: 30%;
     border-radius: 20px;
 }
+
+.data-selector {
+    width: 60%;
+    height: 120px;
+    margin-bottom: 10px;
+}
