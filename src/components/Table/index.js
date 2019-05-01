@@ -10,13 +10,13 @@ const Table = props => {
 
     // console.log(tableSelectorField);
 
-    const emptyTable = [{
-        properties : {
-            data: "no data"}
-    }];
+    // const emptyTable = [{
+    //     properties : {
+    //         data: "no data"}
+    // }];
 
     const tableData = props.data.geojson && props.hoverID && tableSelectorField ? props.data.geojson.filter(feature => 
-        feature.properties[tableSelectorField] === props.hoverID) : emptyTable;
+        feature.properties[tableSelectorField] === props.hoverID) : null;
     
     // console.log(tableData ? tableData['0'] : null)
 

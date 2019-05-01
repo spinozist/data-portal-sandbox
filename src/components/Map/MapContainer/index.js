@@ -49,8 +49,8 @@ const Map = props => {
       doubleClickZoom={true}
       scrollWheelZoom={true}
       dragging={true}
-      animate={true}
-      easeLinearity={0.35}
+      animate={false}
+      easeLinearity={0.7}
     >
 
     <LayersControl position="bottomleft">

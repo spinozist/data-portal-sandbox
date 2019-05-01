@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { GeoJSON } from 'react-leaflet';
+import React from "react";
 // import API from "../../utils/API";
 import colormap from 'colormap';
 
@@ -15,7 +14,7 @@ const ColorRamp = props => {
         alpha: 1
       }).reverse();
 
-    const binWidthRatio = 60/numberOfBins;
+    const binWidthRatio = 100/numberOfBins;
     const binWidth = String(binWidthRatio) + "%";
     // console.log(binWidth);
 
