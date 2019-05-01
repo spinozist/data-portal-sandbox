@@ -48,7 +48,7 @@ const DataExplorer = props => {
 
     API.getData(dataConfigObject.url)
       .then(res => {
-      // console.log(res.data.features)
+      console.log(res.data.features)
       setDataState( {
         // ...dataState,
         // pass other data config values here insteade of dataState

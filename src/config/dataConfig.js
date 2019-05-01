@@ -57,6 +57,24 @@ const dataConfig = [
         filterType: [],
         filterValue: [],
         hoverField: 'ZIP'
+    },
+    {
+        name: "Housing by ARC Tracts 2016",
+        url: "https://opendata.arcgis.com/datasets/f0ac98abe8534badb937a249847c29ce_241.geojson",
+        defaultVariable: 'Pct_Renter_Occ_Units',
+        defaultNormalizer: null,
+        defaultFilterType: null,
+        defaultFilterValue: 'ARC 10',
+        defaultHoverID: "13013180401",
+        variableOptions: [
+            'Pct_Renter_Occ_Units',
+            'Pct_Owner_Occ_Housing_Units'
+
+        ],
+        normalizerOptions: [],
+        filterType: [],
+        filterValue: [],
+        hoverField: 'GEOID10'
     }
 
 
