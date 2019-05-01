@@ -6,12 +6,18 @@ import colormap from 'colormap';
 
 const ColorRamp = props => {
 
+    const numberOfBins = 10;
+
     const colors = colormap({
         colormap: 'viridis',
-        nshades: 10,
+        nshades: numberOfBins,
         format: 'hex',
         alpha: 1
       }).reverse();
+
+    const binWidthRatio = 60/numberOfBins;
+    const binWidth = String(binWidthRatio) + "%";
+    // console.log(binWidth);
 
     return (
         colors ? colors.map(color =>
@@ -20,7 +26,8 @@ const ColorRamp = props => {
             float: 'left',
             height: '40px',
             backgroundColor: color,
-            width: '10%'        
+            width: binWidth,
+            marginTop: '5px',
         }}
         />) : null
     );

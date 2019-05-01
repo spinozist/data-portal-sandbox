@@ -10,7 +10,8 @@
 }
 
 #inactive-var-button {
-    font-size: .3em;
+    font-size: .5em;
     height: 40px;
     width: 120px;
+    opacity: .8;
 }

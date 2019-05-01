@@ -27,9 +27,9 @@ const GeoJSONLayer = props => {
 
     // console.log(valueArray);
     
-    console.log(props.data)
-      console.log(maxValue);
-      console.log(minValue);
+    // console.log(props.data)
+    //   console.log(maxValue);
+    //   console.log(minValue);
 
 
 
@@ -60,17 +60,17 @@ const GeoJSONLayer = props => {
         }}
         onEachFeature={(feature, layer) => {
             
-          const variable=feature.properties[props.data.selectedVariable];
-          const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
+          // const variable=feature.properties[props.data.selectedVariable];
+          // const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
 
-          const value = variable/normalizer;
+          // const value = variable/normalizer;
+          
           const featureID = feature.properties[props.data.hoverField];
           // console.log(String(value))
-          layer.bindTooltip(String(value))
-            .on('mouseover', e => {
-              // console.log(featureID);
-              props.handleHoverID(featureID)
-            });
+          layer.bindTooltip(String(featureID)).on('mouseover', e => {
+                // console.log(featureID);
+                props.handleHoverID(featureID)
+              });
         }}
       />
     );

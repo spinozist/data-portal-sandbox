@@ -6,8 +6,9 @@ import Table from '../Table';
 import ExampleChart from '../Charts/Example'
 import API from "../../utils/API";
 import dataConfig from "../../config/dataConfig";
-import './style.css';
 import ColorRamp from "../Map/Legends/ColorRamp";
+import './style.css';
+
 
 
 
@@ -43,6 +44,7 @@ const DataExplorer = props => {
 
   const setData = dataConfigObject => {
     // console.log(url)
+    setHoverID(null);
 
     API.getData(dataConfigObject.url)
       .then(res => {
@@ -86,7 +88,7 @@ const DataExplorer = props => {
 
   // const 
 
-  useEffect(() => {setData(defaultDataConfig)}, [geography]); 
+  useEffect(() => {setData(defaultDataConfig)}, [geography]);
 
 
   return (
@@ -110,15 +112,13 @@ const DataExplorer = props => {
         />
         : null
       }
-      <ColorRamp className="colorramp" />
-
-      {/* {  layoutState.tableview ?
+      {  layoutState.tableview ?
         <Table
           hoverID={hoverID} 
           data={dataState}
         />
         : null
-      } */}
+      }
       {  layoutState.chartview ?
         <ExampleChart
           hoverID={hoverID} 
@@ -126,6 +126,8 @@ const DataExplorer = props => {
         />
         : null
       }
+      <ColorRamp />
+
 
     </div>
   )

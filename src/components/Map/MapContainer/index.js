@@ -6,20 +6,37 @@ import API from "../../../utils/API";
 
 const Map = props => {
 
-  const [overlayData, setOverlayData] = useState();
+  const [overlayData, setOverlayData] = useState({
+    overlay_one: null,
+    overlay_two: null
+  });
   
 
-  const apiOverlayData = url => {
+  const apiOverlayData = (url1, url2) => {
 
-    API.getData(url)
+    API.getData(url1)
       .then(res => {
       // console.log(res.data.features)
-      setOverlayData(res.data.features)
+      setOverlayData({
+        ...overlayData,
+        overlay_one: res.data.features})
     })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
+
+    API.getData(url2)
+      .then(res => {
+      // console.log(res.data.features)
+      setOverlayData({
+        ...overlayData,
+        overlay_two: res.data.features})
+    })
+      .catch(err => console.log(err));
   }
 
-  useEffect(props => apiOverlayData('https://opendata.arcgis.com/datasets/63996663b8a040438defe56ef7ce31e3_0.geojson'), [])
+  useEffect(props => apiOverlayData(
+    'https://opendata.arcgis.com/datasets/63996663b8a040438defe56ef7ce31e3_0.geojson',
+    'https://opendata.arcgis.com/datasets/0248805ea42145d3b7d7194beafcc3d7_55.geojson'
+    ), [])
   // useEffect(props => apiOverlayData('https://opendata.arcgis.com/datasets/1da4c7825971437999bf6446c7b94568_36.geojson'), [])
 
   return (
@@ -52,8 +69,14 @@ const Map = props => {
       <LayersControl.Overlay 
         name="County Boundaries"
         checked='true'>
-        { overlayData ?
-          <OverlayLayer data={overlayData}/> : null } 
+        { overlayData.overlay_one ?
+          <OverlayLayer data={overlayData.overlay_one}/> : null } 
+      </LayersControl.Overlay>
+      <LayersControl.Overlay 
+        name="City Boundaries"
+        checked='false'>
+        { overlayData.overlay_two ?
+          <OverlayLayer data={overlayData.overlay_two}/> : null } 
       </LayersControl.Overlay>
     </LayersControl>
 

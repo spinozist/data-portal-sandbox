@@ -46,7 +46,7 @@ const dataConfig = [
         defaultNormalizer: null,
         defaultFilterType: null,
         defaultFilterValue: 'ARC 10',
-        defaultHoverID: "13013180401",
+        defaultHoverID: "30306",
         variableOptions: [
             'Percent_Population_in_poverty',
             'Pct_Pop_65older_in_Poverty',
@@ -55,8 +55,11 @@ const dataConfig = [
         ],
         normalizerOptions: [],
         filterType: [],
-        filterValue: []
-    },
+        filterValue: [],
+        hoverField: 'ZIP'
+    }
+
+
     // {
     //     name: "School Suspensions 2015 to 2017",
     //     url: "https://opendata.arcgis.com/datasets/58a2c741395743b89528acd952d1964c_254.geojson",
