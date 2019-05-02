@@ -7,7 +7,7 @@
     text-align: center;
     background-color: black;
     position: absolute;
-    font-size: 6em;
+    font-size: 5em;
     float: right;
     right: 20px;
     top: -20px;
@@ -19,4 +19,13 @@
     width: 60%;
     height: 120px;
     margin-bottom: 10px;
+}
+
+.table-container {
+    float: left;
+    width: 39%;
+    margin-left: 1%;
+    /* float: right; */
+    height: 80%;
+    overflow: scroll;
 }

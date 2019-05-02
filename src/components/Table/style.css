@@ -1,9 +1,20 @@
-.table-container {
-    float: right;
-    height: 80%;
-    width: 39%;
-    margin-left: 1%;
+.data-table {
+    float: left;
+    /* height: 500px; */
+
     /* background-color: blanchedalmond; */
     /* border: 2px solid black; */
     overflow: scroll;
+}
+
+.odd-row {
+    background-color: rgba(231, 231, 231, 0.897);
+}
+
+.odd-row :hover {
+    background-color: rgba(185, 164, 164, 0.897);
+}
+
+.even-row :hover {
+    background-color: rgba(185, 164, 164, 0.897);
 }

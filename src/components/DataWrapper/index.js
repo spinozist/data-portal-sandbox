@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import GeoSelector from "../GeoSelector";
 import VarSelector from "../VarSelector";
 import Map from "../Map/MapContainer";
-// import Table from '../Table';
+import Table from '../Table';
 import ExampleChart from '../Charts/Example'
 import API from "../../utils/API";
 import dataConfig from "../../config/dataConfig";
@@ -112,13 +112,14 @@ const DataExplorer = props => {
         />
         : null
       }
-      {/* {  layoutState.tableview ?
+      {  layoutState.tableview ?
         <Table
+          className="table-container"
           hoverID={hoverID} 
           data={dataState}
         />
         : null
-      } */}
+      }
       {  layoutState.chartview ?
         <ExampleChart
           hoverID={hoverID} 
