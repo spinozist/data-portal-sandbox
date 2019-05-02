@@ -20,6 +20,10 @@ const DataExplorer = props => {
 
   const [geography, setGeography] = useState(geoOptions[0]);
 
+  const [min, setMin] = useState();
+
+  const [max, setMax] = useState();
+
   const selectedDefaults = dataConfig.filter(configObject => configObject.name === geography);
 
   const defaultDataConfig = selectedDefaults[0];
@@ -48,7 +52,8 @@ const DataExplorer = props => {
 
     API.getData(dataConfigObject.url)
       .then(res => {
-      console.log(res.data.features)
+      console.log(res.data.features);
+
       setDataState( {
         // ...dataState,
         // pass other data config values here insteade of dataState
@@ -59,7 +64,6 @@ const DataExplorer = props => {
         geographyFilter: dataConfigObject.defaultFilterType,
         geographyFilterValue: dataConfigObject.defaultFilterValue,
         hoverField: defaultDataConfig.hoverField
-     
       })
     })
       .catch(err => console.log(err))
@@ -86,10 +90,28 @@ const DataExplorer = props => {
     // console.log(geography);
   }
 
+  const setMaxMin = data => {
+
+    const valueArray = data.geojson ? data.geojson
+    .filter(feature => feature.properties[data.selectedVariable])
+    .map(feature => {
+    
+    const variable = feature.properties[data.selectedVariable];
+    const normalizer=data.normalizedBy ? feature.properties[data.normalizedBy] : 1
+
+      return variable/normalizer}) : null;
+    const maxValue = valueArray !== null ? Math.max(...valueArray) : 'Value array not load yet';
+    const minValue = valueArray !== null ? Math.min(...valueArray) : 'Value array not load yet';
+
+    console.log(maxValue);
+    console.log(minValue);
+
+  }
+
   // const 
 
   useEffect(() => {setData(defaultDataConfig)}, [geography]);
-
+  // useEffect(() => {setData()})
 
   return (
     <div className="data-wrapper" id="data-wrapper">

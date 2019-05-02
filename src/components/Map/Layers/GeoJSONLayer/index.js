@@ -34,6 +34,7 @@ const GeoJSONLayer = props => {
 
 
     return (
+
         <GeoJSON
         key={props.data.geography}
         data={props.data.geographyFilter ? 
