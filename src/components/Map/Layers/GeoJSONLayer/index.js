@@ -1,18 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { GeoJSON } from 'react-leaflet';
-// import API from "../../utils/API";
 import colormap from 'colormap';
 
 
 const GeoJSONLayer = props => {
 
+  const numberOfBins = props.layoutState.numberOfBins;
+  const colorMap = props.layoutState.colorMap;
+  const reverse = props.layoutState.colorMapReverse;
 
-    const colors = colormap({
-        colormap: 'viridis',
-        nshades: 10,
-        format: 'hex',
-        alpha: 1
-      }).reverse();
+
+    const colors = reverse ? colormap({
+      colormap: colorMap,
+      nshades: numberOfBins,
+      format: 'hex',
+      alpha: 1
+    }).reverse() : colormap({
+      colormap: colorMap,
+      nshades: numberOfBins,
+      format: 'hex',
+      alpha: 1
+    });
 
     const valueArray = props.data.geojson ? props.data.geojson
     .filter(feature => feature.properties[props.data.selectedVariable])
@@ -50,7 +58,7 @@ const GeoJSONLayer = props => {
           const range = maxValue - minValue;
           const binningRatio = value/range;
           // const opacity = value;
-          const color = colors[Math.floor(binningRatio*10)]
+          const color = colors[Math.floor(binningRatio*numberOfBins)]
 
           return ({
             color: '#1a1d62',
@@ -65,9 +73,12 @@ const GeoJSONLayer = props => {
           // const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
 
           // const value = variable/normalizer;
+
+
           
           const featureID = feature.properties[props.data.hoverField];
           // console.log(String(value))
+
           layer.bindTooltip(String(featureID)).on('mouseover', e => {
                 // console.log(featureID);
                 props.handleHoverID(featureID)

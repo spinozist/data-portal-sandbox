@@ -9,18 +9,31 @@ const OverlayLayer = props => {
     //   console.log(maxValue);
     //   console.log(minValue);
 
+    const borderWeight = props.borderWeight;
+    const borderColor = props.borderColor;
 
+    // const polygonToMultiLine = data => {
+    //     data.forEach(feature => console.log(feature.geometry.type))        
+    // }
+
+    // polygonToMultiLine(props.data ? props.data : null)
 
     return (
         <GeoJSON
         key={props.data.geography}
         data={props.data ? props.data : null}
         style={{
-            color: 'black',
-            weight: 2,
-            fillColor: 'white',
+            color: borderColor,
+            weight: borderWeight,
+            fillColor: null,
             fillOpacity: 0,
         }}
+        // onEachFeature={feature => {
+        //     console.log(feature.geometry.type);
+        //     feature.geometry.type = "MultiPoint";
+        //     console.log(feature.geometry.type);
+        
+        // }}
         // style={feature => {
         //   const variable=feature.properties[props.data.selectedVariable];
         //   const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
@@ -53,7 +66,7 @@ const OverlayLayer = props => {
         //       props.handleHoverID(featureID)
         //     });
         // }}
-      >Test</GeoJSON>
+      />
     );
 };
 

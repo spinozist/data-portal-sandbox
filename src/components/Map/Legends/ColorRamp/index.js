@@ -6,14 +6,21 @@ const legendWidth = 60;
 
 const ColorRamp = props => {
 
-    const numberOfBins = 10;
+    const numberOfBins = props.layoutState.numberOfBins;
+    const colorMap = props.layoutState.colorMap;
+    const reverse = props.layoutState.colorMapReverse;
 
-    const colors = colormap({
-        colormap: 'viridis',
+    const colors = reverse ? colormap({
+        colormap: colorMap,
         nshades: numberOfBins,
         format: 'hex',
         alpha: 1
-      }).reverse();
+      }).reverse() : colormap({
+        colormap: colorMap,
+        nshades: numberOfBins,
+        format: 'hex',
+        alpha: 1
+      });
 
     const binWidthRatio = legendWidth/numberOfBins;
     const binWidth = String(binWidthRatio) + "%";

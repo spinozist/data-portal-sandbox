@@ -16,19 +16,30 @@ const Map = props => {
 
     API.getData(url1)
       .then(res => {
-      // console.log(res.data.features)
+        const data = res.data.features;
+        // console.log(data);
+        
+        data.forEach(feature => 
+          console.log(feature.geometry.type));
+
       setOverlayData({
         ...overlayData,
-        overlay_one: res.data.features})
+        overlay_one: data})
     })
       .catch(err => console.log(err));
 
     API.getData(url2)
       .then(res => {
-      // console.log(res.data.features)
+        const data = res.data.features;
+        // console.log(data);
+        
+        data.forEach(feature => 
+          console.log(feature.geometry.type));
+
+
       setOverlayData({
         ...overlayData,
-        overlay_two: res.data.features})
+        overlay_two: data})
     })
       .catch(err => console.log(err));
   }
@@ -70,13 +81,19 @@ const Map = props => {
         name="County Boundaries"
         checked='true'>
         { overlayData.overlay_one ?
-          <OverlayLayer data={overlayData.overlay_one}/> : null } 
+          <OverlayLayer 
+          borderWeight={2}
+          borderColor={"black"}
+          data={overlayData.overlay_one}/> : null } 
       </LayersControl.Overlay>
       <LayersControl.Overlay 
         name="City Boundaries"
         checked='false'>
         { overlayData.overlay_two ?
-          <OverlayLayer data={overlayData.overlay_two}/> : null } 
+          <OverlayLayer 
+          borderWeight={1.5}
+          borderColor={"white"}
+          data={overlayData.overlay_two}/> : null } 
       </LayersControl.Overlay>
     </LayersControl>
 

@@ -75,7 +75,21 @@ const dataConfig = [
         filterType: [],
         filterValue: [],
         hoverField: 'GEOID10'
-    }
+    },
+    {
+        name: "USGS Earthqaukes Daily Feed",
+        url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson",
+        defaultVariable: 'mag',
+        defaultNormalizer: null,
+        defaultFilterType: null,
+        defaultFilterValue: null,
+        defaultHoverID: null,
+        variableOptions: [],
+        normalizerOptions: [],
+        filterType: [],
+        filterValue: [],
+        hoverField: "code"
+    },    
 
 
     // {
