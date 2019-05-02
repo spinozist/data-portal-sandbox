@@ -5,6 +5,7 @@
     /* background-color: blanchedalmond; */
     /* border: 2px solid black; */
     overflow: scroll;
+    font-size: .9em;
 }
 
 .odd-row {
@@ -18,3 +19,12 @@
 .even-row :hover {
     background-color: rgba(185, 164, 164, 0.897);
 }
+
+.header-row, .column-2 {
+    text-align: left;
+    padding-left: 20px;
+}
+
+/* .column-1 {
+    width: 5%;
+} */

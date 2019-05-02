@@ -41,10 +41,10 @@ const Table = props => {
                     id={"table-" +  tableSelectorField + "-" + props.hoverID}
                     key={tableSelectorField + "-" + props.hoverID}>
                     <tr className="header-row">
-                        <th>
-                            Indicator
+                        <th className="column-1">
+                            Field
                         </th>
-                        <th>
+                        <th className="column-2">
                             Value
                         </th>
                     </tr>
@@ -60,10 +60,10 @@ const Table = props => {
                                 key={index}
                                 id={"row-" + index}
                                 >
-                                    <td className="col-1">
+                                    <td className="column-1">
                                         {indicatorLabel}
                                     </td>
-                                    <td className="col-2">
+                                    <td className="column-2">
                                         {valueArray[index]}
                                     </td>
                                 </tr>
