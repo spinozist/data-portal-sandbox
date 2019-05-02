@@ -4,7 +4,7 @@ import './style.css';
 
 const Table = props => {
 
-    // console.log(props)
+    console.log(props.data.selectedVariable)
 
     const tableSelectorField = props.data.hoverField
 
@@ -24,7 +24,7 @@ const Table = props => {
     const valueArray = tableData ? Object.values(tableData[0].properties) : null
 
     // console.log(indicatorArray);
-    console.log(valueArray);
+    // console.log(valueArray);
 
 
     // console.log(tableSelectorField ? console.log(tableSelectorField) : null);
@@ -51,14 +51,14 @@ const Table = props => {
                     {
                         indicatorArray ? indicatorArray.map((indicator, index) => {
                             const indicatorLabel = indicator;
-                            console.log(index)
+                            console.log(indicatorLabel + "[" + index + "]");
 
                             // const value = valueArray[index];
                             return (
                                 <tr 
-                                className={ index % 2 === 0 ? "odd-row" : "even-row"}
-                                key={index}
-                                id={"row-" + index}
+                                className={ index % 2 === 0 ? "odd-row" : "even-row" }
+                                key={"row-key-" + index}
+                                id={ indicatorLabel === props.data.selectedVariable ? "sel-var-row" : "row-" + index }
                                 >
                                     <td className="column-1">
                                         {indicatorLabel}

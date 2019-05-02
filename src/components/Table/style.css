@@ -25,6 +25,11 @@
     padding-left: 20px;
 }
 
+#sel-var-row {
+    background-color: rgb(163, 125, 199);
+    font-size: 1.2em;
+}
+
 /* .column-1 {
     width: 5%;
 } */
