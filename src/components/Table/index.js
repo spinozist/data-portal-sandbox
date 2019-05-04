@@ -51,7 +51,7 @@ const Table = props => {
                     {
                         indicatorArray ? indicatorArray.map((indicator, index) => {
                             const indicatorLabel = indicator;
-                            console.log(indicatorLabel + "[" + index + "]");
+                            // console.log(indicatorLabel + "[" + index + "]");
 
                             // const value = valueArray[index];
                             return (

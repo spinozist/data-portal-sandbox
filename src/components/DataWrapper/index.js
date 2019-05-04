@@ -3,7 +3,7 @@ import GeoSelector from "../GeoSelector";
 import VarSelector from "../VarSelector";
 import Map from "../Map/MapContainer";
 import Table from '../Table';
-import ExampleChart from '../Charts/Example'
+import ScatterPlot from '../Charts/ScatterPlot'
 import API from "../../utils/API";
 import dataConfig from "../../config/dataConfig";
 import ColorRamp from "../Map/Legends/ColorRamp";
@@ -30,7 +30,7 @@ const DataExplorer = props => {
 
   const [layoutState, setLayout] = useState({
     mapview: true,
-    chartview: false,
+    chartview: true,
     tableview: true,
     colorMap: 'viridis',
     numberOfBins: 72,
@@ -70,6 +70,7 @@ const DataExplorer = props => {
         geography: geography,
         geojson: res.data.features,
         selectedVariable: dataConfigObject.defaultVariable,
+        selectedSecondVar: dataConfigObject.defaultSecondVar,
         normalizedBy: dataConfigObject.defaultNormalizer,
         geographyFilter: dataConfigObject.defaultFilterType,
         geographyFilterValue: dataConfigObject.defaultFilterValue,
@@ -154,9 +155,10 @@ const DataExplorer = props => {
         : null
       }
       {  layoutState.chartview ?
-        <ExampleChart
-          hoverID={hoverID} 
+        <ScatterPlot
+          // hoverID={hoverID} 
           data={dataState}
+          layoutState={layoutState}
         />
         : null
       }
