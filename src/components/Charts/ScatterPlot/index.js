@@ -11,7 +11,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import colormap from 'colormap';
 import './style.css';
 
@@ -45,34 +45,52 @@ const ScatterPlot = props => {
     })
     ) : null;
 
-  // const data = [
-  //   { x: 100, y: 200, z: 200 },
-  //   { x: 120, y: 100, z: 260 },
-  //   { x: 170, y: 300, z: 400 },
-  //   { x: 140, y: 250, z: 280 },
-  //   { x: 150, y: 400, z: 500 },
-  //   { x: 110, y: 280, z: 200 },
-  // ];
+    // const valueArray = props.data.geojson ? props.data.geojson
+    // .filter(feature => feature.properties[props.data.selectedVariable])
+    // .map(feature => {
+    
+    // const variable = feature.properties[props.data.selectedVariable];
+    // const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
 
-  // console.log(dataArray);
+    //   return variable/normalizer}) : null;
+    // const maxValue = valueArray !== null ? Math.max(...valueArray) : 'Value array not load yet';
+    // const minValue = valueArray !== null ? Math.min(...valueArray) : 'Value array not load yet';
+
+
 
   return (
     <div
       className="chart-container"
     >
+    <ResponsiveContainer height="100%" width="100%">
       <ScatterChart
-        width={500}
-        height={350}
-        margin={{
-          top: 0, right: 0, bottom: 0, left: 0,
-        }}
-      >
-        <CartesianGrid />
-        <XAxis type="number" dataKey="x" name={props.data ? props.data.selectedVariable : null } unit={null} />
-        <YAxis type="number" dataKey="y" name={props.data ? props.data.selectedSecondVar : null } unit={null} />
-        <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-        <Scatter name="A school" data={dataArray} fill={colors[0]} />
-      </ScatterChart>
+          margin={{
+            top: 10, right: 10, bottom: 20, left: 15,
+          }}
+        >
+          <CartesianGrid />
+          <XAxis type="number" 
+                 dataKey="x" 
+                 name={props.data ? props.data.selectedVariable : null } 
+                 label={{
+                    value: props.data ? props.data.selectedVariable : 'x',
+                    position: 'bottom'
+                  }}
+                 unit={null} />
+          <YAxis type="number" 
+                 dataKey="y" 
+                 name={props.data ? props.data.selectedSecondVar : null } 
+                 label={{
+                   value: props.data ? props.data.selectedSecondVar : 'y',
+                   position: 'left',
+                   angle: -90
+                  }} 
+                 unit={null} />
+          <Tooltip cursor={{ strokeDasharray: '3 3' }} animationEasing={'ease-in-out'} />
+          <Scatter name="scatter-chart" data={dataArray} fill={colors[0]} />
+        </ScatterChart>
+    </ResponsiveContainer>
+
     </div>
   );
 };

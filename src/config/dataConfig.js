@@ -3,7 +3,7 @@ const dataConfig = [
         name: "Race by GA Tracts  2010",
         url: "https://opendata.arcgis.com/datasets/2e73cc4a02a441ba968e6a63a8b526f5_56.geojson",
         defaultVariable: 'nhw_or10',
-        defaultSecondVar: 'asia_or10',
+        defaultSecondVar: 'bl_or10',
         defaultNormalizer: 'totpop10',
         defaultFilterType: null,
         defaultFilterValue: 'ARC 10',
