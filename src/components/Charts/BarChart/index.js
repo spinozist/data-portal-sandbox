@@ -11,13 +11,13 @@
 
 
 import React from 'react';
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import colormap from 'colormap';
 import './style.css';
 
 
 
-const ScatterPlot = props => {
+const SimpleBarChart = props => {
   // static jsfiddleUrl = 'https://jsfiddle.net/alidingling/uLysj0u2/';
   // console.log(props.data.geojson);
 
@@ -38,12 +38,11 @@ const ScatterPlot = props => {
     });
 
   const dataArray = props.data.geojson ? props.data.geojson.map(feature => 
-    ({
-      x: feature.properties[props.data.selectedVariable],
-      y: feature.properties[props.data.selectedSecondVar],
-      z: feature.properties.nhw_or10
-    })
-    ) : null;
+        ({
+        x: feature.properties[props.data.selectedVariable],
+        name: feature.properties[props.data.hoverField],
+        })
+        ) : null;
 
     // const valueArray = props.data.geojson ? props.data.geojson
     // .filter(feature => feature.properties[props.data.selectedVariable])
@@ -63,40 +62,17 @@ const ScatterPlot = props => {
       className="chart-container"
     >
     <ResponsiveContainer height="100%" width="100%">
-      <ScatterChart
-          margin={{
-            top: 10, right: 10, bottom: 5, left: 15,
-          }}
-        >
-          <CartesianGrid />
-          <XAxis hide
-                 type="number" 
-                 dataKey="x" 
-                 name={props.data ? props.data.selectedVariable : null } 
-                 label={{
-                    value: props.data ? props.data.selectedVariable : 'x',
-                    position: 'bottom'
-                  }}
-                 unit={null} />
-          <YAxis hide
-                 type="number" 
-                 dataKey="y" 
-                 name={props.data ? props.data.selectedSecondVar : null } 
-                 label={{
-                   value: props.data ? props.data.selectedSecondVar : 'y',
-                   position: 'left',
-                   angle: -90
-                  }} 
-                 unit={null} />
-          <Tooltip cursor={{ strokeDasharray: '3 3' }} animationEasing={'ease-in-out'} />
-          <Scatter name="scatter-chart" data={dataArray} fill={colors[0]} />
-        </ScatterChart>
+     <BarChart data={dataArray}>
+        <XAxis hide name={props.data.hoverField} dataKey="name" />
+        <Bar name={props.data.selectedVariable} dataKey={'x'} fill={colors[0]} />
+        <Tooltip cursor={{ strokeDasharray: '3 3' }} animationEasing={'ease-in-out'} />
+      </BarChart>
     </ResponsiveContainer>
 
     </div>
   );
 };
 
-export default ScatterPlot;
+export default SimpleBarChart;
 
 

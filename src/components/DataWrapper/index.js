@@ -3,7 +3,8 @@ import GeoSelector from "../GeoSelector";
 import VarSelector from "../VarSelector";
 import Map from "../Map/MapContainer";
 import Table from '../Table';
-import ScatterPlot from '../Charts/ScatterPlot'
+import ScatterPlot from '../Charts/ScatterPlot';
+import SimpleBarChart from '../Charts/BarChart'
 import API from "../../utils/API";
 import dataConfig from "../../config/dataConfig";
 import ColorRamp from "../Map/Legends/ColorRamp";
@@ -34,7 +35,8 @@ const DataExplorer = props => {
     tableview: true,
     colorMap: 'viridis',
     numberOfBins: 72,
-    colorMapReverse: true
+    colorMapReverse: false,
+    chartType: 'simple-bar-chart'
   });
 
 
@@ -52,6 +54,13 @@ const DataExplorer = props => {
     setLayout({
       ...layoutState,
       colorMapReverse: colorMapReverse ? false : true
+    })
+  }
+
+  const changeChartType = chartType => {
+    setLayout({
+      ...layoutState,
+      chartType: chartType
     })
   }
 
@@ -154,8 +163,16 @@ const DataExplorer = props => {
         />
         : null
       }
-      {  layoutState.chartview ?
+      {  layoutState.chartview && layoutState.chartType === 'scatterplot' ?
         <ScatterPlot
+          // hoverID={hoverID} 
+          data={dataState}
+          layoutState={layoutState}
+        />
+        : null
+      }
+      {  layoutState.chartview && layoutState.chartType === 'simple-bar-chart' ?
+        <SimpleBarChart
           // hoverID={hoverID} 
           data={dataState}
           layoutState={layoutState}
@@ -183,6 +200,51 @@ const DataExplorer = props => {
       onClick={e => flipColorMap(layoutState.colorMapReverse)}
       >
         Flip Colors
+      </button>
+      <button
+      id={layoutState.chartType === 'scatterplot' ? 'active-chart-button' : null }
+      style={{
+        color: layoutState.chartType === 'scatterplot' ? 'white' : null,
+        // borderColor: layoutState.chartType === 'scatterplot' ? 'rgb(0, 255, 213)' : null,
+        // borderWidth: layoutState.chartType === 'scatterplot' ? '6px' : null,
+        float: 'left',
+        textAlign: 'center',
+        fontSize: '1.3em',
+        height: '40px',
+        width: '9%',
+        marginTop: '5px',
+        marginLeft: '10%',
+        borderRadius: '5px',
+        verticalAlign: 'middle',
+        backgroundColor: layoutState.chartType === 'scatterplot' ? 'black' : 'lightgrey' ,
+        padding: '2px',
+        outline: 'none'
+      }}
+      onClick={e => changeChartType('scatterplot')}
+      >
+        Scatterplot
+      </button>
+      <button
+      style={{
+        color: layoutState.chartType === 'simple-bar-chart' ? 'white' : null,
+        float: 'left',
+        // borderColor: layoutState.chartType === 'simple-bar-chart' ? 'rgb(0, 255, 213)' : null,
+        // borderWidth: layoutState.chartType === 'simple-bar-chart' ? '6px' : null,
+        textAlign: 'center',
+        fontSize: '1.3em',
+        height: '40px',
+        width: '9%',
+        marginTop: '5px',
+        marginLeft: '1%',
+        borderRadius: '5px',
+        verticalAlign: 'middle',
+        backgroundColor: layoutState.chartType === 'simple-bar-chart' ? 'black' : 'lightgrey' ,
+        padding: '2px',
+        outline: 'none'
+      }}
+      onClick={e => changeChartType('simple-bar-chart')}
+      >
+        Bar Chart
       </button>
 
 
