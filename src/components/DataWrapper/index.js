@@ -165,7 +165,7 @@ const DataExplorer = props => {
       }
       {  layoutState.chartview && layoutState.chartType === 'scatterplot' ?
         <ScatterPlot
-          // hoverID={hoverID} 
+          hoverID={hoverID} 
           data={dataState}
           layoutState={layoutState}
         />
@@ -173,7 +173,7 @@ const DataExplorer = props => {
       }
       {  layoutState.chartview && layoutState.chartType === 'simple-bar-chart' ?
         <SimpleBarChart
-          // hoverID={hoverID} 
+          hoverID={hoverID} 
           data={dataState}
           layoutState={layoutState}
         />

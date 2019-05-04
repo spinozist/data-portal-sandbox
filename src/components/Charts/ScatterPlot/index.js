@@ -41,7 +41,7 @@ const ScatterPlot = props => {
     ({
       x: feature.properties[props.data.selectedVariable],
       y: feature.properties[props.data.selectedSecondVar],
-      z: feature.properties.nhw_or10
+      name: feature.properties[props.data.hoverField]
     })
     ) : null;
 
@@ -89,8 +89,10 @@ const ScatterPlot = props => {
                   }} 
                  unit={null} />
           <Tooltip cursor={{ strokeDasharray: '3 3' }} animationEasing={'ease-in-out'} />
-          <Scatter name="scatter-chart" data={dataArray} fill={colors[0]} />
-        </ScatterChart>
+          
+            <Scatter name={props.data.hoverField} data={dataArray} fill={colors[0]} />
+            <Scatter name={props.data.hoverField} data={props.hoverID ? dataArray.filter(e => e.name === props.hoverID) : null} fill={colors[numberOfBins-1]} />
+          </ScatterChart>
     </ResponsiveContainer>
 
     </div>
