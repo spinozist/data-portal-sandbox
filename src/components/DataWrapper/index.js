@@ -4,7 +4,8 @@ import VarSelector from "../VarSelector";
 import Map from "../Map/MapContainer";
 import Table from '../Table';
 import ScatterPlot from '../Charts/ScatterPlot';
-import SimpleBarChart from '../Charts/BarChart'
+import SimpleBarChart from '../Charts/BarChart';
+import AreaChart from '../Charts/AreaChart';
 import API from "../../utils/API";
 import dataConfig from "../../config/dataConfig";
 import ColorRamp from "../Map/Legends/ColorRamp";
@@ -173,7 +174,15 @@ const DataExplorer = props => {
       }
       {  layoutState.chartview && layoutState.chartType === 'simple-bar-chart' ?
         <SimpleBarChart
-          hoverID={hoverID} 
+          // hoverID={hoverID} 
+          data={dataState}
+          layoutState={layoutState}
+        />
+        : null
+      }
+      {  layoutState.chartview && layoutState.chartType === 'area-chart' ?
+        <AreaChart
+          // hoverID={hoverID} 
           data={dataState}
           layoutState={layoutState}
         />
@@ -245,6 +254,28 @@ const DataExplorer = props => {
       onClick={e => changeChartType('simple-bar-chart')}
       >
         Bar Chart
+      </button>
+      <button
+      style={{
+        color: layoutState.chartType === 'area-chart' ? 'white' : null,
+        float: 'left',
+        // borderColor: layoutState.chartType === 'area-chart' ? 'rgb(0, 255, 213)' : null,
+        // borderWidth: layoutState.chartType === 'area-chart' ? '6px' : null,
+        textAlign: 'center',
+        fontSize: '1.3em',
+        height: '5%',
+        width: '9%',
+        marginTop: '5px',
+        marginLeft: '1%',
+        borderRadius: '5px',
+        verticalAlign: 'middle',
+        backgroundColor: layoutState.chartType === 'area-chart' ? 'black' : 'lightgrey' ,
+        padding: '2px',
+        outline: 'none'
+      }}
+      onClick={e => changeChartType('area-chart')}
+      >
+        Area Chart
       </button>
 
 

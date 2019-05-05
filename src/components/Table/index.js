@@ -41,10 +41,10 @@ const Table = props => {
                     id={"table-" +  tableSelectorField + "-" + props.hoverID}
                     key={tableSelectorField + "-" + props.hoverID}>
                     <tr className="header-row">
-                        <th className="column-1">
+                        <th className="header-col-1">
                             Field
                         </th>
-                        <th className="column-2">
+                        <th className="header-col-2">
                             Value
                         </th>
                     </tr>

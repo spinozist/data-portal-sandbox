@@ -1,25 +1,11 @@
-// import React from "react";
-// import './style.css';
-
-// const ScatterPlot = props => (
-//   <div className="chart-container">
-//     <h3>This is where a chart should go.</h3>
-//   </div>
-// );
-
-// export default ScatterPlot;
-
-
 import React from 'react';
-import { ComposedChart, Brush, Bar, Area, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { ComposedChart, Brush, Area, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import colormap from 'colormap';
 import './style.css';
 
 
 
-const SimpleBarChart = props => {
-  // static jsfiddleUrl = 'https://jsfiddle.net/alidingling/uLysj0u2/';
-  // console.log(props.data.geojson);
+const AreaChart = props => {
 
   const numberOfBins = props.layoutState.numberOfBins;
   const colorMap = props.layoutState.colorMap;
@@ -64,8 +50,8 @@ const SimpleBarChart = props => {
     <ResponsiveContainer height="100%" width="100%">
      <ComposedChart data={dataArray}>
         <XAxis hide name={props.data.hoverField} dataKey="name" />
-        <Bar name={props.data.selectedVariable} dataKey={'x'} fill={colors[0]} />
-        {/* <Area type="monotone" dataKey={'x'} fill="#8884d8" stroke="#8884d8" /> */}
+        {/* <Bar name={props.data.selectedVariable} dataKey={'x'} fill={colors[0]} /> */}
+        <Area type="monotone" name={props.data.selectedVariable} dataKey={'x'} fill={colors[0]} stroke="#8884d8" />
         {/* <Brush dataKey="name" height={30} stroke="#8884d8" /> */}
         <Tooltip cursor={{ strokeDasharray: '3 3' }} animationEasing={'ease-in-out'} />
       </ComposedChart>
@@ -75,6 +61,6 @@ const SimpleBarChart = props => {
   );
 };
 
-export default SimpleBarChart;
+export default AreaChart;
 
 
