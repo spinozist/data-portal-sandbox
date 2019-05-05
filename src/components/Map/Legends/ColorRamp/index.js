@@ -31,7 +31,7 @@ const ColorRamp = props => {
         <div 
         style={{
             float: 'left',
-            height: '40px',
+            height: '5%',
             backgroundColor: color,
             width: binWidth,
             marginTop: '5px',
