@@ -11,7 +11,7 @@
 
 
 import React from 'react';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { ComposedChart, BarChart, Bar, Area, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import colormap from 'colormap';
 import './style.css';
 
@@ -62,11 +62,12 @@ const SimpleBarChart = props => {
       className="chart-container"
     >
     <ResponsiveContainer height="100%" width="100%">
-     <BarChart data={dataArray}>
+     <ComposedChart data={dataArray}>
         <XAxis hide name={props.data.hoverField} dataKey="name" />
         <Bar name={props.data.selectedVariable} dataKey={'x'} fill={colors[0]} />
+        {/* <Area type="monotone" dataKey={'x'} fill="#8884d8" stroke="#8884d8" /> */}
         <Tooltip cursor={{ strokeDasharray: '3 3' }} animationEasing={'ease-in-out'} />
-      </BarChart>
+      </ComposedChart>
     </ResponsiveContainer>
 
     </div>
