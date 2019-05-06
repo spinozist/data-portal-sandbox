@@ -122,7 +122,7 @@ const Table = props => {
                                     id={ indicatorLabel === props.data.selectedVariable ? "sel-var-row" : "row-" + index }
                                     style={indicatorLabel === props.data.selectedVariable ? 
                                         {
-                                            backgroundColor: colors[colors.length/2],
+                                            backgroundColor: colors[Math.floor(numberOfBins * .6)],
                                             fontSize: '1.2em',
                                         
                                         } : null }
