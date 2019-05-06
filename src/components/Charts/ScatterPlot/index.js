@@ -65,7 +65,7 @@ const ScatterPlot = props => {
     <ResponsiveContainer height="100%" width="100%">
       <ScatterChart
           margin={{
-            top: 10, right: 10, bottom: 5, left: 15,
+            top: 30, right: 10, bottom: 5, left: 15,
           }}
         >
           <CartesianGrid />

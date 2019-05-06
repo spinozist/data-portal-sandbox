@@ -48,7 +48,11 @@ const AreaChart = props => {
       className="chart-container"
     >
     <ResponsiveContainer height="100%" width="100%">
-     <ComposedChart data={dataArray}>
+     <ComposedChart 
+        data={dataArray}
+        margin={{
+            top: 30, right: 10, bottom: 5, left: 15,
+          }}>
         <XAxis hide name={props.data.hoverField} dataKey="name" />
         {/* <Bar name={props.data.selectedVariable} dataKey={'x'} fill={colors[0]} /> */}
         <Area type="monotone" name={props.data.selectedVariable} dataKey={'x'} fill={colors[0]} stroke="#8884d8" />

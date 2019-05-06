@@ -32,14 +32,12 @@ const Table = props => {
        value: valueArray[index]
    })) : null;
 
-//    console.log(csvData);
+   console.log(props.data.geography);
 
-dataConfig.filter(configObject => configObject.name === props.data.geography);
+    const dataTitle = props.data.geography ? props.data.geography : null;
 
-const dataTitle = dataConfig[0].name;
-
-const csvFilename = dataTitle.replace(/ /g,"") + "-" + props.hoverID;
-const csvTitle = dataTitle + ": " + props.hoverID
+    const csvFilename = dataTitle ? dataTitle.replace(/ /g,"") + "-" + props.hoverID : null;
+    const csvTitle = dataTitle && props.hoverID ? dataTitle + ": " + props.hoverID : null;
 
 //    const csvFilename = dataTitle
 
