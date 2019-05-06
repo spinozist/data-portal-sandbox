@@ -23,9 +23,18 @@
 
 .table-container {
     float: left;
+    width: 100%;
+    /* margin-left: 1%; */
+    /* float: right; */
+    height: 100%;
+    overflow: scroll;
+}
+
+.table-and-button-container {
+    float: left;
     width: 39%;
     margin-left: 1%;
     /* float: right; */
     height: 30%;
-    overflow: scroll;
+    /* overflow: scroll; */
 }
