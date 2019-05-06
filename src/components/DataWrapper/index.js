@@ -20,7 +20,7 @@ const DataExplorer = props => {
 
   // console.log(geoOptions);
 
-  const [geography, setGeography] = useState(geoOptions[0]);
+  const [geography, setGeography] = useState(geoOptions[1]);
 
   // const [min, setMin] = useState();
 
@@ -34,7 +34,7 @@ const DataExplorer = props => {
     mapview: true,
     chartview: true,
     tableview: true,
-    colorMap: 'jet',
+    colorMap: 'viridis',
     numberOfBins: 72,
     colorMapReverse: false,
     chartType: 'simple-bar-chart'
@@ -147,7 +147,7 @@ const DataExplorer = props => {
           selectedGeo={geography}
           handleVarChange={handleVarChange} />
       </div>
-      <div id="banner">D.A.V.E.</div>
+      <div id="banner">Data ARC</div>
       {  layoutState.mapview ?
         <Map
           handleHoverID={handleHover}
@@ -161,6 +161,7 @@ const DataExplorer = props => {
           className="table-container"
           hoverID={hoverID} 
           data={dataState}
+          layoutState={layoutState}
         />
         : null
       }
@@ -208,7 +209,7 @@ const DataExplorer = props => {
       }}
       onClick={e => flipColorMap(layoutState.colorMapReverse)}
       >
-        Flip Colors
+        Reverse
       </button>
       <button
       id={layoutState.chartType === 'scatterplot' ? 'active-chart-button' : null }

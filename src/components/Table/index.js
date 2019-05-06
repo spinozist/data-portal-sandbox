@@ -1,20 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ExportToCsv } from 'export-to-csv';
-// import { JsonToTable } from 'react-json-to-table';
+import colormap from 'colormap';
 import './style.css';
 
 const Table = props => {
 
     // console.log(props.data.selectedVariable)
 
+    const [buttonDialogue, setButtonDialogue] = useState('Export Data to CSV');
+
     const tableSelectorField = props.data.hoverField
 
     // console.log(tableSelectorField);
 
+    // const changeButtonDialogue = text => {
+    //     setButtonDialogue(text);
+    // }
     // const emptyTable = [{
     //     properties : {
     //         data: "no data"}
     // }];
+
+    const numberOfBins = props.layoutState.numberOfBins;
+    const colorMap = props.layoutState.colorMap;
+    const reverse = props.layoutState.colorMapReverse;
+  
+  //  props.data.geojson ? props.data.geojson.forEach(feature => feature.geometry.type === 'Point' ? L.pointToLayer(feature.geometry.type) : console.log('Is not point')) : null;
+  
+  
+    const colors = reverse ? colormap({
+      colormap: colorMap,
+      nshades: numberOfBins,
+      format: 'hex',
+      alpha: 1
+    }).reverse() : colormap({
+      colormap: colorMap,
+      nshades: numberOfBins,
+      format: 'hex',
+      alpha: 1
+    });
+
 
     const tableData = props.data.geojson && props.hoverID && tableSelectorField ? props.data.geojson.filter(feature => 
         feature.properties[tableSelectorField] === props.hoverID) : null;
@@ -61,12 +86,13 @@ const Table = props => {
 
     return (
         <div className="table-and-button-container">
+
             <button
-            onClick={e => csvExporter.generateCsv(csvData)}
+            onClick={e => csvData ? csvExporter.generateCsv(csvData) : null }
             style={{
                 width: '100%',
             }}
-            >Export To CSV</button>
+            >{buttonDialogue}</button>
             <div className="table-container">
                 {
                 props.hoverID ?
@@ -94,6 +120,12 @@ const Table = props => {
                                     className={ index % 2 === 0 ? "odd-row" : "even-row" }
                                     key={"row-key-" + index}
                                     id={ indicatorLabel === props.data.selectedVariable ? "sel-var-row" : "row-" + index }
+                                    style={indicatorLabel === props.data.selectedVariable ? 
+                                        {
+                                            backgroundColor: colors[colors.length/2],
+                                            fontSize: '1.2em',
+                                        
+                                        } : null }
                                     >
                                         <td className="column-1">
                                             {indicatorLabel}

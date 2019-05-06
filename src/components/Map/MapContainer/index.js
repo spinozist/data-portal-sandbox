@@ -83,6 +83,9 @@ const Map = props => {
       animate={false}
       easeLinearity={0.7}
     >
+      { props.data.geojson ?
+       <GeoJSONLayer {...props}/> : null }
+
 
     <LayersControl position="bottomleft">
       <LayersControl.BaseLayer name="OpenStreetMap Mono">
@@ -126,23 +129,11 @@ const Map = props => {
       </LayersControl.Overlay>
     </LayersControl>
 
-
-
-        
-
-
-
-      { props.data.geojson ?
-       <GeoJSONLayer {...props}/> : null }
-
-
        
       <TileLayer
       // url='https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
       url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-      >
-
-      </TileLayer>
+      />
      
 
     </LeafletMap>
