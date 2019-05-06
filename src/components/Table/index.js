@@ -1,6 +1,5 @@
 import React from 'react';
 import { ExportToCsv } from 'export-to-csv';
-import dataConfig from "../../config/dataConfig";
 // import { JsonToTable } from 'react-json-to-table';
 import './style.css';
 

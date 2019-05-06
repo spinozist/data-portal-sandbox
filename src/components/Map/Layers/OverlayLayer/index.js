@@ -1,11 +1,14 @@
 import React from "react";
 import { GeoJSON } from 'react-leaflet';
 // import API from "../../utils/API";
+import * as turf from '@turf/turf';
+
 
 
 const OverlayLayer = props => {
 
-    // console.log(props.data)
+    const linestringData = props.data ? props.data.map(feature => turf.polygonToLine(feature)) : null;
+    // console.log(linestringData)
     //   console.log(maxValue);
     //   console.log(minValue);
 
@@ -21,12 +24,12 @@ const OverlayLayer = props => {
     return (
         <GeoJSON
         key={props.data.geography}
-        data={props.data ? props.data : null}
+        data={props.data ? linestringData : null}
         style={{
             color: borderColor,
             weight: borderWeight,
-            fillColor: null,
-            fillOpacity: 0,
+            // fillColor: null,
+            // fillOpacity: 0,
         }}
         // onEachFeature={feature => {
         //     console.log(feature.geometry.type);

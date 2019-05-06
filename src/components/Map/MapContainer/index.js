@@ -3,24 +3,28 @@ import { Map as LeafletMap, TileLayer, LayersControl } from 'react-leaflet';
 import GeoJSONLayer from '../Layers/GeoJSONLayer';
 import OverlayLayer from '../Layers/OverlayLayer';
 import API from "../../../utils/API";
+// import GACounties from "../../../config/overlayLayers.json"
 
 const Map = props => {
 
+  // console.log(GACounties);
+
   const [overlayData, setOverlayData] = useState({
     overlay_one: null,
-    overlay_two: null
+    overlay_two: null,
+    overlay_three: null,
   });
   
 
-  const apiOverlayData = (url1, url2) => {
+  const apiOverlayData = (url1, url2, url3) => {
 
     API.getData(url1)
       .then(res => {
         const data = res.data.features;
         // console.log(data);
         
-        data.forEach(feature => 
-          console.log(feature.geometry.type));
+        // data.forEach(feature => 
+        //   console.log(feature.geometry.type));
 
       setOverlayData({
         ...overlayData,
@@ -33,8 +37,8 @@ const Map = props => {
         const data = res.data.features;
         // console.log(data);
         
-        data.forEach(feature => 
-          console.log(feature.geometry.type));
+        // data.forEach(feature => 
+        //   console.log(feature.geometry.type));
 
 
       setOverlayData({
@@ -42,11 +46,27 @@ const Map = props => {
         overlay_two: data})
     })
       .catch(err => console.log(err));
+    
+    API.getData(url3)
+      .then(res => {
+        const data = res.data.features;
+        // console.log(data);
+        
+        // data.forEach(feature => 
+        //   console.log(feature.geometry.type));
+
+
+      setOverlayData({
+        ...overlayData,
+        overlay_three: data})
+    })
+      .catch(err => console.log(err));
   }
 
   useEffect(props => apiOverlayData(
     'https://opendata.arcgis.com/datasets/63996663b8a040438defe56ef7ce31e3_0.geojson',
-    'https://opendata.arcgis.com/datasets/0248805ea42145d3b7d7194beafcc3d7_55.geojson'
+    'https://opendata.arcgis.com/datasets/0248805ea42145d3b7d7194beafcc3d7_55.geojson',
+    'https://opendata.arcgis.com/datasets/91911cd123624a6b9b88cbf4266a2309_4.geojson'
     ), [])
   // useEffect(props => apiOverlayData('https://opendata.arcgis.com/datasets/1da4c7825971437999bf6446c7b94568_36.geojson'), [])
 
@@ -79,7 +99,7 @@ const Map = props => {
       </LayersControl.BaseLayer>
       <LayersControl.Overlay 
         name="County Boundaries"
-        checked='true'>
+        checked='false'>
         { overlayData.overlay_one ?
           <OverlayLayer 
           borderWeight={2}
@@ -94,6 +114,15 @@ const Map = props => {
           borderWeight={1.5}
           borderColor={"white"}
           data={overlayData.overlay_two}/> : null } 
+      </LayersControl.Overlay>
+      <LayersControl.Overlay 
+        name="NPU Boundaries"
+        checked='false'>
+        { overlayData.overlay_three ?
+          <OverlayLayer 
+          borderWeight={1.5}
+          borderColor={"black"}
+          data={overlayData.overlay_three}/> : null } 
       </LayersControl.Overlay>
     </LayersControl>
 

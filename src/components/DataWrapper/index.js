@@ -34,7 +34,7 @@ const DataExplorer = props => {
     mapview: true,
     chartview: true,
     tableview: true,
-    colorMap: 'viridis',
+    colorMap: 'jet',
     numberOfBins: 72,
     colorMapReverse: false,
     chartType: 'simple-bar-chart'
@@ -147,7 +147,7 @@ const DataExplorer = props => {
           selectedGeo={geography}
           handleVarChange={handleVarChange} />
       </div>
-      <div id="banner">Data ARC</div>
+      <div id="banner">D.A.V.E.</div>
       {  layoutState.mapview ?
         <Map
           handleHoverID={handleHover}
