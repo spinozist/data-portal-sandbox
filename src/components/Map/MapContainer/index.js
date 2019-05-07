@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Map as LeafletMap, TileLayer, LayersControl } from 'react-leaflet';
+import { Map as LeafletMap, TileLayer, LayersControl, ZoomControl } from 'react-leaflet';
 import GeoJSONLayer from '../Layers/GeoJSONLayer';
 import OverlayLayer from '../Layers/OverlayLayer';
 import API from "../../../utils/API";
@@ -68,7 +68,6 @@ const Map = props => {
     'https://opendata.arcgis.com/datasets/0248805ea42145d3b7d7194beafcc3d7_55.geojson',
     'https://opendata.arcgis.com/datasets/91911cd123624a6b9b88cbf4266a2309_4.geojson'
     ), [])
-  // useEffect(props => apiOverlayData('https://opendata.arcgis.com/datasets/1da4c7825971437999bf6446c7b94568_36.geojson'), [])
 
   return (
     <LeafletMap
@@ -76,16 +75,17 @@ const Map = props => {
       zoom={9}
       maxZoom={18}
       attributionControl={true}
-      zoomControl={true}
+      zoomControl={false}
       doubleClickZoom={true}
       scrollWheelZoom={true}
       dragging={true}
       animate={false}
       easeLinearity={0.7}
     >
+        <ZoomControl position="topright" />
+
       { props.data.geojson ?
        <GeoJSONLayer {...props}/> : null }
-
 
     <LayersControl position="bottomleft">
       <LayersControl.BaseLayer name="OpenStreetMap Mono">

@@ -1,9 +1,9 @@
 #active-var-button {
     font-size: .8em;
-    height: 40px;
-    width: 180px;
-    border: solid;
-    border-color: orangered;
+    height: 100px;
+    width: 100px;
+    /* border: solid;
+    border-color: orangered; */
     opacity: 1;
     border-width: 5px;
     line-height: .9em;
@@ -11,7 +11,7 @@
 
 #inactive-var-button {
     font-size: .5em;
-    height: 40px;
-    width: 120px;
+    height: 80px;
+    width: 80px;
     opacity: .8;
 }

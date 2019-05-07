@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Navbar, Button, Container, Row, Col, Dropdown } from 'react-bootstrap';
+import { TiChartArea, TiChartBar } from 'react-icons/ti';
+import { MdGrain, MdCompareArrows } from 'react-icons/md';
 import GeoSelector from "../GeoSelector";
 import VarSelector from "../VarSelector";
 import Map from "../Map/MapContainer";
@@ -7,6 +10,7 @@ import ScatterPlot from '../Charts/ScatterPlot';
 import SimpleBarChart from '../Charts/BarChart';
 import AreaChart from '../Charts/AreaChart';
 import API from "../../utils/API";
+import ColorMapObject from "../../utils/ColorMapObject";
 import dataConfig from "../../config/dataConfig";
 import ColorRamp from "../Map/Legends/ColorRamp";
 import './style.css';
@@ -19,6 +23,8 @@ const DataExplorer = props => {
   const geoOptions = dataConfig.map(configObject => configObject.name);
 
   // console.log(geoOptions);
+
+  const colorList = Object.keys(ColorMapObject);
 
   const [geography, setGeography] = useState(geoOptions[1]);
 
@@ -68,7 +74,6 @@ const DataExplorer = props => {
 
   const setData = dataConfigObject => {
     // console.log(url)
-    setHoverID(null);
 
     API.getData(dataConfigObject.url)
       .then(res => {
@@ -85,9 +90,9 @@ const DataExplorer = props => {
         geographyFilter: dataConfigObject.defaultFilterType,
         geographyFilterValue: dataConfigObject.defaultFilterValue,
         hoverField: defaultDataConfig.hoverField
-      })
+      });
     })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   }
 
   const handleHover = featureID => {
@@ -96,9 +101,10 @@ const DataExplorer = props => {
   }
 
   const handleGeoChange = geoName => {
-    console.log(geoName);
+    setHoverID(null);
+    // console.log(geoName);
     setGeography(geoName);
-    console.log(geography);
+    // console.log(geography);
   }
 
   const handleVarChange = selectedVar => {
@@ -110,6 +116,14 @@ const DataExplorer = props => {
     // setGeography(geoName);
     // console.log(geography);
   }
+
+  const changeColorRamp = colorRampName => {
+    setLayout({
+    ...layoutState,
+    colorMap: colorRampName
+    })
+  }
+
 
   // const setMaxMin = data => {
 
@@ -129,23 +143,65 @@ const DataExplorer = props => {
 
   // }
 
-  // const 
-
   useEffect(() => {setData(defaultDataConfig)}, [geography]);
-  // useEffect(() => {setData()})
 
   return (
-    <div className="data-wrapper" id="data-wrapper">
+    <Container fluid className="data-wrapper" id="data-wrapper">
       <div className="data-selector">
         <div id="geo-selector">
-        <GeoSelector
+        <Dropdown style={{ float: 'left', padding: '10px'}}>
+        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+          Select Category
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu
+          style={{
+            overflow: 'scroll',
+            maxHeight: '30vh'
+          }}>
+          {  dataConfig.map(dataObject => 
+            <Dropdown.Item
+              style={{
+                backgroundColor: dataObject.name === geography ? 'black' : null,
+                color: dataObject.name === geography ? 'white' : null,
+              }} 
+              value={dataObject.name} 
+              onClick={e => handleGeoChange(dataObject.name)}
+            >
+              {dataObject.name}
+            </Dropdown.Item>
+          )
+          }
+          {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+          </Dropdown.Menu>
+        </Dropdown>
+        {/* <GeoSelector
           currentGeo={geography}
-          handleGeoChange={handleGeoChange} />
+          handleGeoChange={handleGeoChange} /> */}
+        <div style={{
+          position: 'relative',
+          bottom: '-15px',
+          marginLeft: '5%',
+          marginRight: '2%',
+          width: '25%',
+          height: '100%', 
+          float: 'left',
+          textAlign: 'center',
+          backgroundColor: 'black',
+          color: 'white',
+          padding: '20px',
+          borderRadius: '10px 10px 0 0',
+          
+        }}>
+          {geography ? <h4>{geography}</h4> : null}
+        </div>  
         </div>
         <VarSelector
           currentSelection={dataState.selectedVariable}
           selectedGeo={geography}
-          handleVarChange={handleVarChange} />
+          handleVarChange={handleVarChange}
+          layoutState={layoutState} />
       </div>
       <div id="banner">Data ARC</div>
       {  layoutState.mapview ?
@@ -189,16 +245,43 @@ const DataExplorer = props => {
         />
         : null
       }
+      <Dropdown style={{ float: 'left', padding: '10px'}}>
+        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+          Change Color Ramp
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu
+          style={{
+            overflow: 'scroll',
+            maxHeight: '30vh'
+          }}>
+          {  colorList.map(colorName => 
+            <Dropdown.Item
+              style={{
+                backgroundColor: colorName === layoutState.colorMap ? 'black' : null,
+                color: colorName === layoutState.colorMap ? 'white' : null,
+              }} 
+              value={colorName} 
+              onClick={e => changeColorRamp(colorName)}
+            >
+              {colorName}
+            </Dropdown.Item>
+          )
+          }
+          {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+        </Dropdown.Menu>
+      </Dropdown>
       <ColorRamp
         layoutState={layoutState}
       />
-      <button
+      <MdCompareArrows
       style={{
         float: 'left',
         textAlign: 'center',
         fontSize: '1.3em',
         height: '5%',
-        width: '9%',
+        width: '5%',
         marginTop: '5px',
         marginLeft: '1%',
         borderRadius: '5px',
@@ -208,10 +291,8 @@ const DataExplorer = props => {
         outline: 'none'
       }}
       onClick={e => flipColorMap(layoutState.colorMapReverse)}
-      >
-        Reverse
-      </button>
-      <button
+      />
+      <MdGrain
       id={layoutState.chartType === 'scatterplot' ? 'active-chart-button' : null }
       style={{
         color: layoutState.chartType === 'scatterplot' ? 'white' : null,
@@ -221,9 +302,9 @@ const DataExplorer = props => {
         textAlign: 'center',
         fontSize: '1.3em',
         height: '5%',
-        width: '9%',
+        width: '5%',
         marginTop: '5px',
-        marginLeft: '10%',
+        marginLeft: '15%',
         borderRadius: '5px',
         verticalAlign: 'middle',
         backgroundColor: layoutState.chartType === 'scatterplot' ? 'black' : 'lightgrey' ,
@@ -231,10 +312,8 @@ const DataExplorer = props => {
         outline: 'none'
       }}
       onClick={e => changeChartType('scatterplot')}
-      >
-        Scatterplot
-      </button>
-      <button
+      />
+      <TiChartBar
       style={{
         color: layoutState.chartType === 'simple-bar-chart' ? 'white' : null,
         float: 'left',
@@ -243,7 +322,7 @@ const DataExplorer = props => {
         textAlign: 'center',
         fontSize: '1.3em',
         height: '5%',
-        width: '9%',
+        width: '5%',
         marginTop: '5px',
         marginLeft: '1%',
         borderRadius: '5px',
@@ -253,10 +332,8 @@ const DataExplorer = props => {
         outline: 'none'
       }}
       onClick={e => changeChartType('simple-bar-chart')}
-      >
-        Bar Chart
-      </button>
-      <button
+      />
+      <TiChartArea
       style={{
         color: layoutState.chartType === 'area-chart' ? 'white' : null,
         float: 'left',
@@ -265,7 +342,7 @@ const DataExplorer = props => {
         textAlign: 'center',
         fontSize: '1.3em',
         height: '5%',
-        width: '9%',
+        width: '5%',
         marginTop: '5px',
         marginLeft: '1%',
         borderRadius: '5px',
@@ -275,12 +352,11 @@ const DataExplorer = props => {
         outline: 'none'
       }}
       onClick={e => changeChartType('area-chart')}
-      >
-        Area Chart
-      </button>
+      />
 
 
-    </div>
+
+    </Container>
   )
 };
 

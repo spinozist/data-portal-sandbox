@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import dataConfig from "../../config/dataConfig";
 import colormap from 'colormap';
 import './style.css';
@@ -26,22 +27,24 @@ const VarSelector = props => {
             varArray ?
             varArray.map(
             variable => 
-                <button
+                <Button
                 onClick={event => props.handleVarChange(variable)} 
                 className="var-selector" 
                 id={variable === currentSelection ? 'active-var-button' : 'inactive-var-button' }
                 style={{
-                    float: 'right',
+                    // heigth: '100px',
+                    // width: '100px',
+                    float: 'left',
                     color: 'white',
                     backgroundColor: colors[varArray.indexOf(variable)],
                     margin: '0px 5px 5px 0px',
-                    borderRadius: "10px",
+                    borderRadius: "50%",
                     outline: 'none',
-                    lineHeigt: '40px',
+                    // lineHeigt: '40px',
                 }}
                 >
                     {variable.replace(/_/g," ")}
-                </button>) : null
+                </Button>) : null
 
         // <select>
         //     {dataConfig ?

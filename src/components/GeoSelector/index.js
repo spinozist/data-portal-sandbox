@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import dataConfig from "../../config/dataConfig";
 import "./style.css"
 
@@ -9,7 +10,7 @@ const GeoSelector = props => {
         dataConfig ?
         dataConfig.map(
         geoObject => 
-            <button
+            <Button
             onClick={event => props.handleGeoChange(geoObject.name)} 
             id={props.currentGeo === geoObject.name ? "active-geo-button" : "inactive-geo-button"}
             style={{
@@ -21,7 +22,7 @@ const GeoSelector = props => {
             }}
             >
                 {geoObject.name}
-            </button>) : null
+            </Button>) : null
         
 
         // <select>

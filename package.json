@@ -1,17 +1,18 @@
 {
-  "name": "example",
+  "name": "data_arc",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@turf/turf": "^5.1.6",
     "axios": "^0.18.0",
-    "canvasjs": "^1.8.1",
+    "bootstrap": "^4.3.1",
     "colormap": "^2.3.1",
     "export-to-csv": "^0.2.1",
     "leaflet": "^1.4.0",
     "react": "^16.8.1",
+    "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
-    "react-json-to-table": "^0.1.5",
+    "react-icons": "^3.6.1",
     "react-leaflet": "^2.2.1",
     "react-scripts": "^2.1.8",
     "recharts": "^1.5.0"

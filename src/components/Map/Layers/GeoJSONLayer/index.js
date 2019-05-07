@@ -57,10 +57,14 @@ const GeoJSONLayer = props => {
 
         // console.log(props.data.selectedVariable);
         const value = variable/normalizer;
+        const distFromMin = value - minValue;
         const range = maxValue - minValue;
-        const binningRatio = value/range;
+        const binningRatio = distFromMin/range;
+        const indexRange = numberOfBins - 1;
         // const opacity = value;
-        const color = colors[Math.floor(binningRatio*numberOfBins)]
+        const color = colors[Math.floor(value === 0 ? 0 : binningRatio * indexRange)]
+
+        console.log(binningRatio);
 
         return ({
           color: '#1a1d62',

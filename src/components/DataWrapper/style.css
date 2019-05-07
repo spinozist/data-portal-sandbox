@@ -15,8 +15,15 @@
     border-radius: 20px;
 }
 
+
+#data-wrapper {
+    background-color: white;
+    height: 100vh;
+    padding: 20px;
+}
+
 .data-selector {
-    width: 60%;
+    width: 65%;
     height: 120px;
     margin-bottom: 10px;
 }

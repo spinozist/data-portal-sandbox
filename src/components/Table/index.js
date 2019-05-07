@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 import { ExportToCsv } from 'export-to-csv';
 import colormap from 'colormap';
 import './style.css';
@@ -18,7 +19,7 @@ const Table = props => {
     // }
     // const emptyTable = [{
     //     properties : {
-    //         data: "no data"}
+    //         nodata : "hover over map for data"}
     // }];
 
     const numberOfBins = props.layoutState.numberOfBins;
@@ -46,8 +47,8 @@ const Table = props => {
     
     // console.log(tableData ? JSON.stringify(tableData['0'].properties) : null)
 
-    const indicatorArray = tableData ? Object.keys(tableData[0].properties) : null
-    const valueArray = tableData ? Object.values(tableData[0].properties) : null
+    const indicatorArray = props.hoverID && tableData && tableSelectorField ? Object.keys(tableData[0].properties) : null
+    const valueArray = props.hoverID && tableData && tableSelectorField ? Object.values(tableData[0].properties) : null
 
     // console.log(indicatorArray);
     // console.log(valueArray);
@@ -56,7 +57,7 @@ const Table = props => {
        value: valueArray[index]
    })) : null;
 
-   console.log(props.data.geography);
+//    console.log(props.data.geography);
 
     const dataTitle = props.data.geography ? props.data.geography : null;
 
@@ -87,12 +88,15 @@ const Table = props => {
     return (
         <div className="table-and-button-container">
 
-            <button
+            <Button
+            variant="secondary"
             onClick={e => csvData ? csvExporter.generateCsv(csvData) : null }
             style={{
                 width: '100%',
             }}
-            >{buttonDialogue}</button>
+            >
+            {buttonDialogue}
+            </Button>
             <div className="table-container">
                 {
                 props.hoverID ?
