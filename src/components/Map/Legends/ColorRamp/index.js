@@ -35,6 +35,7 @@ const ColorRamp = props => {
             backgroundColor: color,
             width: binWidth,
             marginTop: '5px',
+            opacity: props.layoutState.colorOpacity + .3
         }}
         />) : null
     );

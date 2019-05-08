@@ -62,17 +62,23 @@ const GeoJSONLayer = props => {
         const binningRatio = distFromMin/range;
         const indexRange = numberOfBins - 1;
         // const opacity = value;
-        const color = colors[Math.floor(value === 0 ? 0 : binningRatio * indexRange)]
+        const color = colors[Math.floor(value === 0 ? 0 : binningRatio * indexRange)];
 
-        console.log(binningRatio);
+        const featureID = feature.properties[props.data.hoverField];
+
+
+        // console.log(featureID);
 
         return ({
-          color: '#1a1d62',
-          weight: 0.4,
+          color: props.hoverID === featureID ? 'black' : '#1a1d62',
+          weight: props.hoverID === featureID ? 1.5 : 0.4,
           fillColor: color,
-          fillOpacity: .7,
+          fillOpacity: props.hoverID === featureID ? 1 : props.layoutState.colorOpacity,
         })
       }}
+
+      onMouse
+
       onEachFeature={(feature, layer) => {
           
         // const variable=feature.properties[props.data.selectedVariable];
@@ -85,7 +91,8 @@ const GeoJSONLayer = props => {
         const featureID = feature.properties[props.data.hoverField];
         // console.log(String(value))
 
-        layer.bindTooltip(String(featureID)).on('mouseover', e => {
+        layer.bindTooltip(String(featureID))
+          .on('mouseover', e => {
               // console.log(featureID);
               props.handleHoverID(featureID)
             });

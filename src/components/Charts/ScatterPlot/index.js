@@ -79,7 +79,7 @@ const ScatterPlot = props => {
                  unit={null} />
           <Tooltip cursor={{ strokeDasharray: '3 3' }} animationEasing={'ease-in-out'} />
           
-            <Scatter name={props.data.hoverField} data={dataArray} fill={colors[0]} />
+            <Scatter name={props.data.hoverField} data={dataArray} onMouseEnter={point => props.handleHoverID(point.name)} fill={colors[0]} />
             <Scatter name={props.data.hoverField} data={props.hoverID ? dataArray.filter(e => e.name === props.hoverID) : null} fill={colors[numberOfBins-1]} />
           </ScatterChart>
     </ResponsiveContainer>

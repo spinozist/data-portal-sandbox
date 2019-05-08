@@ -1,11 +1,11 @@
 import React from 'react';
-import { ComposedChart, Brush, Area, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { AreaChart, Brush, Area, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import colormap from 'colormap';
 import './style.css';
 
 
 
-const AreaChart = props => {
+const AreaChartComp = props => {
 
   const numberOfBins = props.layoutState.numberOfBins;
   const colorMap = props.layoutState.colorMap;
@@ -48,7 +48,7 @@ const AreaChart = props => {
       className="chart-container"
     >
     <ResponsiveContainer height="100%" width="100%">
-     <ComposedChart 
+     <AreaChart 
         data={dataArray}
         margin={{
             top: 30, right: 10, bottom: 5, left: 15,
@@ -58,13 +58,13 @@ const AreaChart = props => {
         <Area type="linear" name={props.data.selectedVariable} dataKey={'x'} fill={colors[0]} stroke="#8884d8" />
         {/* <Brush dataKey="name" height={30} stroke="#8884d8" /> */}
         <Tooltip cursor={{ strokeDasharray: '3 3' }} animationEasing={'ease-in-out'} />
-      </ComposedChart>
+      </AreaChart>
     </ResponsiveContainer>
 
     </div>
   );
 };
 
-export default AreaChart;
+export default AreaChartComp;
 
 

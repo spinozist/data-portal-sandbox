@@ -43,7 +43,8 @@ const DataExplorer = props => {
     colorMap: 'viridis',
     numberOfBins: 72,
     colorMapReverse: false,
-    chartType: 'simple-bar-chart'
+    chartType: 'simple-bar-chart',
+    colorOpacity: .5
   });
 
 
@@ -211,6 +212,7 @@ const DataExplorer = props => {
           handleHoverID={handleHover}
           data={dataState}
           layoutState={layoutState}
+          hoverID={hoverID}
           // loading={loading}
         />
         : null
@@ -229,22 +231,27 @@ const DataExplorer = props => {
           hoverID={hoverID} 
           data={dataState}
           layoutState={layoutState}
+          handleHoverID={handleHover}
         />
         : null
       }
       {  layoutState.chartview && layoutState.chartType === 'simple-bar-chart' ?
         <SimpleBarChart
-          // hoverID={hoverID} 
+          hoverID={hoverID} 
           data={dataState}
           layoutState={layoutState}
+          handleHoverID={handleHover}
+
         />
         : null
       }
       {  layoutState.chartview && layoutState.chartType === 'area-chart' ?
         <AreaChart
-          // hoverID={hoverID} 
+          hoverID={hoverID} 
           data={dataState}
           layoutState={layoutState}
+          handleHoverID={handleHover}
+
         />
         : null
       }
