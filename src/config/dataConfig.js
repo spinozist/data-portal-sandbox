@@ -89,7 +89,10 @@ const dataConfig = [
         defaultFilterType: null,
         defaultFilterValue: null,
         defaultHoverID: null,
-        variableOptions: [],
+        variableOptions: [
+            'mag',
+            'dmin'
+        ],
         normalizerOptions: [],
         filterType: [],
         filterValue: [],

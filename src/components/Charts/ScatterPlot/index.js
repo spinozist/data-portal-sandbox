@@ -1,15 +1,3 @@
-// import React from "react";
-// import './style.css';
-
-// const ScatterPlot = props => (
-//   <div className="chart-container">
-//     <h3>This is where a chart should go.</h3>
-//   </div>
-// );
-
-// export default ScatterPlot;
-
-
 import React from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import colormap from 'colormap';
@@ -79,12 +67,13 @@ const ScatterPlot = props => {
                   }}
                  unit={null} />
           <YAxis hide
+                 orientation="right"
                  type="number" 
                  dataKey="y" 
                  name={props.data ? props.data.selectedSecondVar : null } 
                  label={{
                    value: props.data ? props.data.selectedSecondVar : 'y',
-                   position: 'left',
+                   position: 'right',
                    angle: -90
                   }} 
                  unit={null} />

@@ -27,7 +27,7 @@ const Table = props => {
     const reverse = props.layoutState.colorMapReverse;
   
   //  props.data.geojson ? props.data.geojson.forEach(feature => feature.geometry.type === 'Point' ? L.pointToLayer(feature.geometry.type) : console.log('Is not point')) : null;
-  
+
   
     const colors = reverse ? colormap({
       colormap: colorMap,
@@ -80,6 +80,11 @@ const Table = props => {
 
   const csvExporter = new ExportToCsv(csvOptions);
 
+  const changeButtonDialogue = text => {
+    setButtonDialogue(text);
+    setTimeout(e => setButtonDialogue('Export Data to CSV'), 2000)
+  }
+
 
 
     // const csvData = tableData.map()
@@ -90,9 +95,10 @@ const Table = props => {
 
             <Button
             variant="secondary"
-            onClick={e => csvData ? csvExporter.generateCsv(csvData) : null }
+            onClick={e => !csvData ? changeButtonDialogue('Hover over map to select data...') : csvExporter.generateCsv(csvData, changeButtonDialogue('Data Downloaded')) }
             style={{
                 width: '100%',
+                marginBottom: '10px'
             }}
             >
             {buttonDialogue}

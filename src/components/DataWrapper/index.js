@@ -142,6 +142,7 @@ const DataExplorer = props => {
   //   console.log(minValue);
 
   // }
+  // const [loading, setLoadState ] = useState(true);
 
   useEffect(() => {setData(defaultDataConfig)}, [geography]);
 
@@ -164,6 +165,7 @@ const DataExplorer = props => {
               style={{
                 backgroundColor: dataObject.name === geography ? 'black' : null,
                 color: dataObject.name === geography ? 'white' : null,
+                marginLeft: '2%'
               }} 
               value={dataObject.name} 
               onClick={e => handleGeoChange(dataObject.name)}
@@ -181,9 +183,9 @@ const DataExplorer = props => {
           handleGeoChange={handleGeoChange} /> */}
         <div style={{
           position: 'relative',
-          bottom: '-15px',
-          marginLeft: '5%',
-          marginRight: '2%',
+          bottom: '-25px',
+          marginLeft: '3%',
+          marginRight: '3%',
           width: '25%',
           height: '100%', 
           float: 'left',
@@ -209,6 +211,7 @@ const DataExplorer = props => {
           handleHoverID={handleHover}
           data={dataState}
           layoutState={layoutState}
+          // loading={loading}
         />
         : null
       }
@@ -245,15 +248,15 @@ const DataExplorer = props => {
         />
         : null
       }
-      <Dropdown style={{ float: 'left', padding: '10px'}}>
-        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+      <Dropdown style={{ float: 'left', padding: '10px' }}>
+        <Dropdown.Toggle variant="secondary" id="dropdown-basic" >
           Change Color Ramp
         </Dropdown.Toggle>
 
         <Dropdown.Menu
           style={{
             overflow: 'scroll',
-            maxHeight: '30vh'
+            maxHeight: '30vh',
           }}>
           {  colorList.map(colorName => 
             <Dropdown.Item
@@ -304,7 +307,7 @@ const DataExplorer = props => {
         height: '5%',
         width: '5%',
         marginTop: '5px',
-        marginLeft: '15%',
+        marginLeft: '13%',
         borderRadius: '5px',
         verticalAlign: 'middle',
         backgroundColor: layoutState.chartType === 'scatterplot' ? 'black' : 'lightgrey' ,
