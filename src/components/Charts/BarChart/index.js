@@ -18,8 +18,6 @@ import './style.css';
 
 
 const SimpleBarChart = props => {
-  // static jsfiddleUrl = 'https://jsfiddle.net/alidingling/uLysj0u2/';
-  // console.log(props.data.geojson);
 
   const numberOfBins = props.layoutState.numberOfBins;
   const colorMap = props.layoutState.colorMap;
@@ -44,23 +42,9 @@ const SimpleBarChart = props => {
         })
         ) : null;
 
-    // const valueArray = props.data.geojson ? props.data.geojson
-    // .filter(feature => feature.properties[props.data.selectedVariable])
-    // .map(feature => {
-    
-    // const variable = feature.properties[props.data.selectedVariable];
-    // const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
-
-    //   return variable/normalizer}) : null;
-    // const maxValue = valueArray !== null ? Math.max(...valueArray) : 'Value array not load yet';
-    // const minValue = valueArray !== null ? Math.min(...valueArray) : 'Value array not load yet';
-
-
-
   return (
     <div
-      className="chart-container"
-    >
+      className="chart-container" >
     <ResponsiveContainer height="100%" width="100%">
      <ComposedChart 
         data={dataArray}

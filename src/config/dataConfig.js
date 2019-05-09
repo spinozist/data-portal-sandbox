@@ -17,7 +17,8 @@ const dataConfig = [
         normalizerOptions: [],
         filterType: [],
         filterValue: [],
-        hoverField: 'GEOID10'
+        hoverField: 'GEOID10',
+        point: false
     },
     {
         name: "Income by ARC Tracts 2016",
@@ -39,7 +40,8 @@ const dataConfig = [
         normalizerOptions: [],
         filterType: [],
         filterValue: [],
-        hoverField: 'GEOID10'
+        hoverField: 'GEOID10',
+        point: false
     },
     {
         name: "Poverty by ARC Zips 2015",
@@ -59,7 +61,8 @@ const dataConfig = [
         normalizerOptions: [],
         filterType: [],
         filterValue: [],
-        hoverField: 'ZIP'
+        hoverField: 'ZIP',
+        point: false
     },
     {
         name: "Housing by ARC Tracts 2016",
@@ -78,7 +81,8 @@ const dataConfig = [
         normalizerOptions: [],
         filterType: [],
         filterValue: [],
-        hoverField: 'GEOID10'
+        hoverField: 'GEOID10',
+        point: false
     },
     {
         name: "USGS Earthqaukes Daily Feed",
@@ -87,7 +91,7 @@ const dataConfig = [
         defaultSecondVar: 'dmin',
         defaultNormalizer: null,
         defaultFilterType: null,
-        defaultFilterValue: null,
+        defaultFilterValue: 'earthquake',
         defaultHoverID: null,
         variableOptions: [
             'mag',
@@ -96,8 +100,30 @@ const dataConfig = [
         normalizerOptions: [],
         filterType: [],
         filterValue: [],
-        hoverField: "code"
+        hoverField: "ids",
+        point: true
     },    
+    {
+        name: "Schools CCRPI 2012 to 2017",
+        url: "https://opendata.arcgis.com/datasets/c10b2288d959447c94575434fba585b1_252.geojson",
+        defaultVariable: 'CCRPI_2017',
+        defaultSecondVar: 'CCRPI_2013',
+        defaultNormalizer: null,
+        defaultFilterType: null,
+        defaultFilterValue: 'GRADE_RANGE',
+        defaultHoverID: null,
+        variableOptions: [
+            'CCRPI_2017',
+            'CCRPI_2016',
+            'CCRPI_2015',
+            'CCRPI_2014'
+        ],
+        normalizerOptions: [],
+        filterType: [],
+        filterValue: [],
+        hoverField: "OBJECTID",
+        point: true
+    }, 
 
 
     // {

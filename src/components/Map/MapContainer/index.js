@@ -64,7 +64,7 @@ const Map = props => {
       .catch(err => console.log(err));
   }
 
-  useEffect(props => apiOverlayData(
+  useEffect(() => apiOverlayData(
     'https://opendata.arcgis.com/datasets/63996663b8a040438defe56ef7ce31e3_0.geojson',
     'https://opendata.arcgis.com/datasets/0248805ea42145d3b7d7194beafcc3d7_55.geojson',
     'https://opendata.arcgis.com/datasets/91911cd123624a6b9b88cbf4266a2309_4.geojson'
@@ -89,6 +89,12 @@ const Map = props => {
        <GeoJSONLayer {...props}/> : null }
 
     <LayersControl position="bottomleft">
+      <LayersControl.BaseLayer name="OpenStreetMap Dark">
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap: "Map tiles by Carto, under CC BY 3.0.</a> contributors'
+          url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+        />
+      </LayersControl.BaseLayer>
       <LayersControl.BaseLayer name="OpenStreetMap Mono">
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

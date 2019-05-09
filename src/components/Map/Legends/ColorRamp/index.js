@@ -2,7 +2,7 @@ import React from "react";
 // import API from "../../utils/API";
 import colormap from 'colormap';
 
-const legendWidth = 41;
+const legendWidth = 42;
 
 const ColorRamp = props => {
 
@@ -35,7 +35,8 @@ const ColorRamp = props => {
             backgroundColor: color,
             width: binWidth,
             marginTop: '5px',
-            opacity: props.layoutState.colorOpacity + .3
+            opacity: props.layoutState.colorOpacity,
+            zIndex: '999'
         }}
         />) : null
     );

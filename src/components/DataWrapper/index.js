@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navbar, Button, Container, Row, Col, Dropdown } from 'react-bootstrap';
 import { TiChartArea, TiChartBar } from 'react-icons/ti';
 import { MdGrain, MdCompareArrows } from 'react-icons/md';
-import GeoSelector from "../GeoSelector";
+// import GeoSelector from "../GeoSelector";
 import VarSelector from "../VarSelector";
 import Map from "../Map/MapContainer";
 import Table from '../Table';
@@ -44,16 +44,12 @@ const DataExplorer = props => {
     numberOfBins: 72,
     colorMapReverse: false,
     chartType: 'simple-bar-chart',
-    colorOpacity: .5
+    colorOpacity: .7
   });
 
 
   const [dataState, setDataState] = useState({
     geojson: null,
-    selectedVariable: defaultDataConfig.defaultVariable,
-    normalizedBy: defaultDataConfig.defaultNormalizer,
-    geographyFilter: defaultDataConfig.defaultFilterType,
-    geographyFilterValue: defaultDataConfig.defaultFilterValue,
   });
 
   const [hoverID, setHoverID] = useState(defaultDataConfig.defaultHoverID);
@@ -90,7 +86,8 @@ const DataExplorer = props => {
         normalizedBy: dataConfigObject.defaultNormalizer,
         geographyFilter: dataConfigObject.defaultFilterType,
         geographyFilterValue: dataConfigObject.defaultFilterValue,
-        hoverField: defaultDataConfig.hoverField
+        hoverField: dataConfigObject.hoverField,
+        point: dataConfigObject.point
       });
     })
       .catch(err => console.log(err));
@@ -255,11 +252,33 @@ const DataExplorer = props => {
         />
         : null
       }
+
+      {/* Color Ramp and Controls */}
+
+      <MdCompareArrows
+      style={{
+        float: 'left',
+        textAlign: 'center',
+        fontSize: '1.3em',
+        height: '5%',
+        width: '5%',
+        marginTop: '5px',
+        marginRight: '10px',
+        borderRadius: '5px',
+        verticalAlign: 'middle',
+        backgroundColor: 'lightgrey',
+        padding: '2px',
+        outline: 'none'
+      }}
+      onClick={e => flipColorMap(layoutState.colorMapReverse)}
+      />
+      <ColorRamp
+        layoutState={layoutState}
+      />
       <Dropdown style={{ float: 'left', padding: '10px' }}>
         <Dropdown.Toggle variant="secondary" id="dropdown-basic" >
           Change Color Ramp
         </Dropdown.Toggle>
-
         <Dropdown.Menu
           style={{
             overflow: 'scroll',
@@ -282,26 +301,9 @@ const DataExplorer = props => {
           <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
         </Dropdown.Menu>
       </Dropdown>
-      <ColorRamp
-        layoutState={layoutState}
-      />
-      <MdCompareArrows
-      style={{
-        float: 'left',
-        textAlign: 'center',
-        fontSize: '1.3em',
-        height: '5%',
-        width: '5%',
-        marginTop: '5px',
-        marginLeft: '1%',
-        borderRadius: '5px',
-        verticalAlign: 'middle',
-        backgroundColor: 'lightgrey',
-        padding: '2px',
-        outline: 'none'
-      }}
-      onClick={e => flipColorMap(layoutState.colorMapReverse)}
-      />
+
+      {/* Icons */}
+
       <MdGrain
       id={layoutState.chartType === 'scatterplot' ? 'active-chart-button' : null }
       style={{
