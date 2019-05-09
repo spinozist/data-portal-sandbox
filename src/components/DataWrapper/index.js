@@ -147,10 +147,25 @@ const DataExplorer = props => {
   return (
     <Container fluid className="data-wrapper" id="data-wrapper">
       <div className="data-selector">
-        <div id="geo-selector">
-        <Dropdown style={{ float: 'left', padding: '10px'}}>
+        <div style={{
+          position: 'relative',
+          bottom: '-10px',
+          marginLeft: '3%',
+          marginRight: '4%',
+          width: '40%',
+          height: '100%', 
+          float: 'left',
+          textAlign: 'center',
+          backgroundColor: 'black',
+          color: 'white',
+          padding: '20px',
+          borderRadius: '10px 10px 0 0',
+          
+        }}>
+          {geography ? <h4>{geography}</h4> : null}
+          <Dropdown style={{ float: 'center', marginTop: '15px'}}>
         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-          Select Category
+          Change Category
         </Dropdown.Toggle>
 
         <Dropdown.Menu
@@ -176,26 +191,7 @@ const DataExplorer = props => {
           <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
           </Dropdown.Menu>
         </Dropdown>
-        {/* <GeoSelector
-          currentGeo={geography}
-          handleGeoChange={handleGeoChange} /> */}
-        <div style={{
-          position: 'relative',
-          bottom: '-25px',
-          marginLeft: '3%',
-          marginRight: '3%',
-          width: '25%',
-          height: '100%', 
-          float: 'left',
-          textAlign: 'center',
-          backgroundColor: 'black',
-          color: 'white',
-          padding: '20px',
-          borderRadius: '10px 10px 0 0',
-          
-        }}>
-          {geography ? <h4>{geography}</h4> : null}
-        </div>  
+
         </div>
         <VarSelector
           currentSelection={dataState.selectedVariable}
