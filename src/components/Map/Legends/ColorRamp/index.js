@@ -27,15 +27,17 @@ const ColorRamp = props => {
     // console.log(binWidth);
 
     return (
-        colors ? colors.map(color =>
+        colors ? colors.map(color => 
         <div 
         style={{
+            // position: 'relative',
+            // bottom: '60px',
             float: 'left',
             height: '5%',
             backgroundColor: color,
             width: binWidth,
             marginTop: '5px',
-            opacity: props.layoutState.colorOpacity,
+            opacity: 1,
             zIndex: '999'
         }}
         />) : null

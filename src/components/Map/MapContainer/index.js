@@ -88,7 +88,7 @@ const Map = props => {
       { props.data.geojson ?
        <GeoJSONLayer {...props}/> : null }
 
-    <LayersControl position="bottomleft">
+    <LayersControl position="topleft">
       <LayersControl.BaseLayer name="OpenStreetMap Dark">
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap: "Map tiles by Carto, under CC BY 3.0.</a> contributors'

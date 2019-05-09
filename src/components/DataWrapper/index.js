@@ -72,9 +72,12 @@ const DataExplorer = props => {
   const setData = dataConfigObject => {
     // console.log(url)
 
+
     API.getData(dataConfigObject.url)
       .then(res => {
       console.log(res.data.features);
+
+      setHoverID(null);
 
       setDataState( {
         // ...dataState,
@@ -99,7 +102,7 @@ const DataExplorer = props => {
   }
 
   const handleGeoChange = geoName => {
-    setHoverID(null);
+    // setGeography(null);
     // console.log(geoName);
     setGeography(geoName);
     // console.log(geography);
