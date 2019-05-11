@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import colormap from 'colormap';
 import './style.css';
 
@@ -22,6 +22,19 @@ const ScatterPlot = props => {
       format: 'hex',
       alpha: 1
     });
+
+  const valueArray = props.data.geojson ? props.data.geojson
+    .filter(feature => feature.properties[props.data.selectedVariable])
+    .map(feature => {
+  
+      const variable = feature.properties[props.data.selectedVariable];
+      const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
+
+        return variable/normalizer}) : null;
+
+  const maxValue = valueArray !== null ? Math.max(...valueArray) : 'Value array not load yet';
+  const minValue = valueArray !== null ? Math.min(...valueArray) : 'Value array not load yet';
+
 
   const dataArray = props.data.geojson ? props.data.geojson.map(feature => 
     ({
@@ -67,10 +80,65 @@ const ScatterPlot = props => {
               name={props.data.hoverField} 
               data={dataArray} 
               onMouseEnter={point => props.handleHoverID(point.name)} 
-              fill={colors[0]} />
+              // fill={colors[0]}
+              >
+              {
+                dataArray ? dataArray.map((feature, index) => {
+                  
+                  const value=feature.x;
+                  // const name=feature.name;
+
+                  // console.log(feature);
+          
+                  // console.log(props.data.selectedVariable);
+                  const distFromMin = value - minValue;
+                  const range = maxValue - minValue;
+                  const binningRatio = distFromMin/range;
+                  const indexRange = numberOfBins - 1;
+                  // const opacity = value;
+                  const color = colors[Math.floor(value === 0 ? 0 : binningRatio * indexRange)];
+                  
+
+                  return <Cell 
+                    key={`cell-${index}`} 
+                    fill={color} 
+                    // stroke={props.hoverID && name === props.hoverID ? 'black' : null}
+                    // strokeWidth={props.hoverID && name === props.hoverID ? 2 : null}
+                    />
+                }) : null
+              }
+            </Scatter>
             <Scatter 
               name={props.data.hoverField} 
-              data={props.hoverID ? dataArray.filter(e => e.name === props.hoverID) : null} fill={colors[numberOfBins-1]} />
+              data={props.hoverID ? dataArray.filter(e => e.name === props.hoverID) : null} fill={colors[numberOfBins-1]}
+              >
+                            {
+                dataArray ? dataArray.filter(e => e.name === props.hoverID).map((feature, index) => {
+                  
+                  const value=feature.x;
+                  // const name=feature.name;
+
+                  // console.log(feature);
+          
+                  // console.log(props.data.selectedVariable);
+                  const distFromMin = value - minValue;
+                  const range = maxValue - minValue;
+                  const binningRatio = distFromMin/range;
+                  const indexRange = numberOfBins - 1;
+                  // const opacity = value;
+                  const color = colors[Math.floor(value === 0 ? 0 : binningRatio * indexRange)];
+                  
+
+                  return <Cell 
+                    key={`cell-${index}`} 
+                    fill={color} 
+                    stroke={'black'}
+                    strokeWidth={2}
+                    />
+                }) : null
+              }
+
+            </Scatter>
           </ScatterChart>
       </ResponsiveContainer>
     </div>

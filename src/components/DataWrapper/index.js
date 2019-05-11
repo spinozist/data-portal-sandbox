@@ -47,6 +47,11 @@ const DataExplorer = props => {
     colorOpacity: .7
   });
 
+  const [legendLabel, setLegendLabel] = useState({
+    minValue: null,
+    maxValue: null,
+  });
+
 
   const [dataState, setDataState] = useState({
     geojson: null,
@@ -68,6 +73,28 @@ const DataExplorer = props => {
     })
   }
 
+  const changeLegendLabel = data => {
+
+    const valueArray = data.geojson ? data.geojson
+    .filter(feature => feature.properties[data.selectedVariable])
+    .map(feature => {
+    
+    const variable = feature.properties[data.selectedVariable];
+    const normalizer=data.normalizedBy ? feature.properties[data.normalizedBy] : 1
+
+      return variable/normalizer}) : null;
+    const maxValue = valueArray !== null ? Math.max(...valueArray) : null;
+    const minValue = valueArray !== null ? Math.min(...valueArray) : null;
+
+    // console.log(minValue);
+    // console.log(maxValue);
+
+    setLegendLabel({
+      minValue: minValue,
+      maxValue: maxValue,
+    })
+
+  }
 
   const setData = dataConfigObject => {
     // console.log(url)
@@ -97,25 +124,19 @@ const DataExplorer = props => {
   }
 
   const handleHover = featureID => {
-    // console.log(featureID)
     setHoverID(featureID);
   }
 
   const handleGeoChange = geoName => {
-    // setGeography(null);
-    // console.log(geoName);
     setGeography(geoName);
-    // console.log(geography);
   }
 
   const handleVarChange = selectedVar => {
-    console.log(selectedVar);
+    // console.log(selectedVar);
     setDataState({
       ...dataState,
       selectedVariable: selectedVar
     })
-    // setGeography(geoName);
-    // console.log(geography);
   }
 
   const changeColorRamp = colorRampName => {
@@ -125,27 +146,8 @@ const DataExplorer = props => {
     })
   }
 
-
-  // const setMaxMin = data => {
-
-  //   const valueArray = data.geojson ? data.geojson
-  //   .filter(feature => feature.properties[data.selectedVariable])
-  //   .map(feature => {
-    
-  //   const variable = feature.properties[data.selectedVariable];
-  //   const normalizer=data.normalizedBy ? feature.properties[data.normalizedBy] : 1
-
-  //     return variable/normalizer}) : null;
-  //   const maxValue = valueArray !== null ? Math.max(...valueArray) : 'Value array not load yet';
-  //   const minValue = valueArray !== null ? Math.min(...valueArray) : 'Value array not load yet';
-
-  //   console.log(maxValue);
-  //   console.log(minValue);
-
-  // }
-  // const [loading, setLoadState ] = useState(true);
-
-  useEffect(() => {setData(defaultDataConfig)}, [geography]);
+  useEffect(() => setData(defaultDataConfig), [geography]);
+  useEffect(() => changeLegendLabel(dataState), [dataState.selectedVariable]);
 
   return (
     <Container fluid className="data-wrapper" id="data-wrapper">
@@ -167,7 +169,7 @@ const DataExplorer = props => {
         }}>
           {geography ? <h4>{geography}</h4> : null}
           <Dropdown style={{ float: 'center', marginTop: '15px'}}>
-        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+        <Dropdown.Toggle variant="secondary" className="category-dropdown" id="dropdown-basic">
           Change Category
         </Dropdown.Toggle>
 
@@ -209,6 +211,7 @@ const DataExplorer = props => {
           data={dataState}
           layoutState={layoutState}
           hoverID={hoverID}
+          changeLegendLabel={changeLegendLabel}
           // loading={loading}
         />
         : null
@@ -254,26 +257,38 @@ const DataExplorer = props => {
 
       {/* Color Ramp and Controls */}
 
-      <MdCompareArrows
-      style={{
-        float: 'left',
-        textAlign: 'center',
-        fontSize: '1.3em',
-        height: '5%',
-        width: '5%',
-        marginTop: '5px',
-        marginRight: '10px',
-        borderRadius: '5px',
-        verticalAlign: 'middle',
-        backgroundColor: 'lightgrey',
-        padding: '2px',
-        outline: 'none'
-      }}
-      onClick={e => flipColorMap(layoutState.colorMapReverse)}
-      />
+      <div 
+        className="legend-value-label" 
+        id="min-value-label"
+        style={{
+          float: 'left',
+          height: '40px',
+          width: "4%",
+          textAlign: 'right',
+          fontSize: '1.2em',
+          paddingTop: '12px',
+          paddingRight: '10px'
+      }}>
+      {legendLabel.minValue}
+      </div>
       <ColorRamp
         layoutState={layoutState}
+        legendLabel={legendLabel}
       />
+      <div 
+        className="legend-value-label" 
+        id="max-value-label"
+        style={{
+          float: 'left',
+          height: '40px',
+          width: "5%",
+          textAlign: 'left',
+          fontSize: '1.2em',
+          paddingTop: '12px',
+          paddingLeft: '10px'
+      }}>
+      {legendLabel.maxValue}
+      </div>
       <Dropdown style={{ float: 'left', padding: '10px' }}>
         <Dropdown.Toggle variant="secondary" id="dropdown-basic" >
           Change Color Ramp
@@ -300,6 +315,23 @@ const DataExplorer = props => {
           <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
         </Dropdown.Menu>
       </Dropdown>
+      <MdCompareArrows
+      style={{
+        float: 'left',
+        textAlign: 'center',
+        fontSize: '1.3em',
+        height: '40px',
+        width: '5%',
+        marginTop: '10px',
+        marginRight: '10px',
+        borderRadius: '5px',
+        verticalAlign: 'middle',
+        backgroundColor: 'lightgrey',
+        padding: '2px',
+        outline: 'none'
+      }}
+      onClick={e => flipColorMap(layoutState.colorMapReverse)}
+      />
 
       {/* Icons */}
 

@@ -4,7 +4,7 @@ const dataConfig = [
         url: "https://opendata.arcgis.com/datasets/2e73cc4a02a441ba968e6a63a8b526f5_56.geojson",
         defaultVariable: 'nhw_or10',
         defaultSecondVar: 'bl_or10',
-        defaultNormalizer: 'totpop10',
+        defaultNormalizer: null,
         defaultFilterType: null,
         defaultFilterValue: 'ARC 10',
         defaultHoverID: "13221960100",
@@ -90,7 +90,7 @@ const dataConfig = [
         defaultVariable: 'mag',
         defaultSecondVar: 'dmin',
         defaultNormalizer: null,
-        defaultFilterType: null,
+        defaultFilterType: 'type',
         defaultFilterValue: 'earthquake',
         defaultHoverID: null,
         variableOptions: [

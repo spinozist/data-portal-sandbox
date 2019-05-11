@@ -28,7 +28,7 @@ const AreaChartComp = props => {
         x: feature.properties[props.data.selectedVariable],
         name: feature.properties[props.data.hoverField],
         })
-        ) : null;
+        ).sort((a,b) => a.x > b.x ? 1 : -1) : null;
 
     // const valueArray = props.data.geojson ? props.data.geojson
     // .filter(feature => feature.properties[props.data.selectedVariable])
@@ -55,9 +55,9 @@ const AreaChartComp = props => {
           }}>
         <XAxis hide name={props.data.hoverField} dataKey="name" />
         {/* <Bar name={props.data.selectedVariable} dataKey={'x'} fill={colors[0]} /> */}
-        <Area type="linear" name={props.data.selectedVariable} dataKey={'x'} fill={colors[0]} stroke="#8884d8" />
+        <Area type="linear" name={props.data.selectedVariable} dataKey={'x'} onMouseEnter={item => console.log(item)} fill={colors[0]} stroke="#8884d8" />
         {/* <Brush dataKey="name" height={30} stroke="#8884d8" /> */}
-        <Tooltip cursor={{ strokeDasharray: '3 3' }} animationEasing={'ease-in-out'} />
+        <Tooltip cursor={{ strokeDasharray: '3 3' }} onMouseEnter={item => console.log(item)} animationEasing={'ease-in-out'} />
       </AreaChart>
     </ResponsiveContainer>
 

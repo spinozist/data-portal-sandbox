@@ -30,13 +30,14 @@ const GeoJSONLayer = props => {
   });
 
   const valueArray = props.data.geojson ? props.data.geojson
-  .filter(feature => feature.properties[props.data.selectedVariable])
-  .map(feature => {
-  
-  const variable = feature.properties[props.data.selectedVariable];
-  const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
+    .filter(feature => feature.properties[props.data.selectedVariable])
+    .map(feature => {
+    
+      const variable = feature.properties[props.data.selectedVariable];
+      const normalizer=props.data.normalizedBy ? feature.properties[props.data.normalizedBy] : 1
 
-    return variable/normalizer}) : null;
+      return variable/normalizer}) : null;
+
   const maxValue = valueArray !== null ? Math.max(...valueArray) : 'Value array not load yet';
   const minValue = valueArray !== null ? Math.min(...valueArray) : 'Value array not load yet';
 
@@ -46,12 +47,13 @@ const GeoJSONLayer = props => {
   //   console.log(maxValue);
   //   console.log(minValue);
 
+
   const dataArray = props.data.geographyFilter ? 
   //If there's a filter type
   props.data.geojson.filter(feature => 
     feature.properties[props.data.selectedVariable] > 0 && feature.properties[props.data.geographyFilter] === props.data.geographyFilterValue )
   //If there isn't a filter type
-    : props.data.geojson.filter(feature => feature.properties[props.data.selectedVariable] !== 0);
+    : props.data.geojson;
 
   // const pointData = dataArray.map(feature => feature.geometry.type === 'Point' ? console.log(feature.geometry.type) : null);
   // var geojsonMarkerOptions = {
@@ -130,7 +132,7 @@ const GeoJSONLayer = props => {
             color: props.hoverID === featureID ? 'black' : '#1a1d62',
             weight: props.hoverID === featureID ? 3 : 0.4,
             fillColor: color,
-            fillOpacity: props.hoverID === featureID ? 1 : props.layoutState.colorOpacity,
+            fillOpacity: !value ? 0 : props.hoverID === featureID ? 1 : props.layoutState.colorOpacity,
             zIndex: props.hoverID === featureID ? 999 : 998
           })
         }

@@ -94,6 +94,7 @@ const Table = props => {
         <div className="table-and-button-container">
 
             <Button
+            id="data-export-button"
             variant="secondary"
             onClick={e => !csvData ? changeButtonDialogue('Hover over map to select data...') : csvExporter.generateCsv(csvData, changeButtonDialogue('Data Downloaded')) }
             style={{
