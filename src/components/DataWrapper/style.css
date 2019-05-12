@@ -59,3 +59,7 @@
 .category-dropdown {
     animation: shadow-pulse 2s 6;
 }
+
+.legend-value-label {
+    color: white;
+}

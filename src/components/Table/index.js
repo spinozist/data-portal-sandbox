@@ -6,11 +6,10 @@ import './style.css';
 
 const Table = props => {
 
-    // console.log(props.data.selectedVariable)
-
-    const [buttonDialogue, setButtonDialogue] = useState('Export Data to CSV');
+    // console.log(props.hoverID)
 
     const tableSelectorField = props.data.hoverField
+
 
     // console.log(tableSelectorField);
 
@@ -57,6 +56,11 @@ const Table = props => {
        value: valueArray[index]
    })) : null;
 
+   
+   const buttonText = csvData ? 'Export Data to CSV' : 'Hover over map display data below...'
+
+   const [buttonDialogue, setButtonDialogue] = useState(buttonText);
+
 //    console.log(props.data.geography);
 
     const dataTitle = props.data.geography ? props.data.geography : null;
@@ -82,8 +86,10 @@ const Table = props => {
 
   const changeButtonDialogue = text => {
     setButtonDialogue(text);
-    setTimeout(e => setButtonDialogue('Export Data to CSV'), 2000)
+    setTimeout(e => setButtonDialogue(buttonText), 2000)
   }
+
+  useEffect(() => setButtonDialogue(csvData ? 'Export Data to CSV' : 'Hover over map to display table below...'), [props.hoverID])
 
 
 
@@ -96,7 +102,7 @@ const Table = props => {
             <Button
             id="data-export-button"
             variant="secondary"
-            onClick={e => !csvData ? changeButtonDialogue('Hover over map to select data...') : csvExporter.generateCsv(csvData, changeButtonDialogue('Data Downloaded')) }
+            onClick={e => !csvData ? changeButtonDialogue('Hover over map to select data for export...') : csvExporter.generateCsv(csvData, changeButtonDialogue('Data Downloaded')) }
             style={{
                 width: '100%',
                 marginBottom: '10px'

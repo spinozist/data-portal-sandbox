@@ -92,7 +92,7 @@ const GeoJSONLayer = props => {
         const binningRatio = distFromMin/range;
         const indexRange = numberOfBins - 1;
         // const opacity = value;
-        const color = colors[Math.floor(value === 0 ? 0 : binningRatio * indexRange)];
+        const color = colors[Math.floor(binningRatio * indexRange)];
 
         // const featureID = feature.properties[props.data.hoverField];
 

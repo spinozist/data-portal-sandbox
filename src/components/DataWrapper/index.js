@@ -43,7 +43,7 @@ const DataExplorer = props => {
     colorMap: 'viridis',
     numberOfBins: 72,
     colorMapReverse: false,
-    chartType: 'simple-bar-chart',
+    chartType: 'scatterplot',
     colorOpacity: .7
   });
 
@@ -57,7 +57,7 @@ const DataExplorer = props => {
     geojson: null,
   });
 
-  const [hoverID, setHoverID] = useState(defaultDataConfig.defaultHoverID);
+  const [hoverID, setHoverID] = useState(null);
 
   const flipColorMap = colorMapReverse => {
     setLayout({
@@ -102,9 +102,11 @@ const DataExplorer = props => {
 
     API.getData(dataConfigObject.url)
       .then(res => {
-      console.log(res.data.features);
+      // console.log(res.data.features);
 
       setHoverID(null);
+
+      // flicker();
 
       setDataState( {
         // ...dataState,
@@ -139,12 +141,43 @@ const DataExplorer = props => {
     })
   }
 
+  //  
+  const animateData = (duration, incrementArray) => {
+    
+    let incrementIndex = 0;
+
+    setInterval(() => {
+
+      incrementIndex < incrementArray.length ?
+
+        setDataState({
+          ...dataState,
+          selectedVariable: incrementArray[incrementIndex]
+        }) 
+        
+        : incrementIndex = -1;
+
+      incrementIndex++
+    }, duration) 
+  }  
+
+  // For Fun :)
+  const flicker = () => {
+    setInterval(() => {
+      setLayout({
+      ...layoutState,
+      colorOpacity: Math.random()
+    })}, 50);
+    setTimeout(() => clearInterval(), 1000);
+  }
+
   const changeColorRamp = colorRampName => {
     setLayout({
     ...layoutState,
     colorMap: colorRampName
     })
   }
+
 
   useEffect(() => setData(defaultDataConfig), [geography]);
   useEffect(() => changeLegendLabel(dataState), [dataState.selectedVariable]);
@@ -170,7 +203,7 @@ const DataExplorer = props => {
           {geography ? <h4>{geography}</h4> : null}
           <Dropdown style={{ float: 'center', marginTop: '15px'}}>
         <Dropdown.Toggle variant="secondary" className="category-dropdown" id="dropdown-basic">
-          Change Category
+          Change Data Category
         </Dropdown.Toggle>
 
         <Dropdown.Menu
@@ -207,6 +240,7 @@ const DataExplorer = props => {
       <div id="banner">Data ARC</div>
       {  layoutState.mapview ?
         <Map
+          onMouseOver={() => flicker()}
           handleHoverID={handleHover}
           data={dataState}
           layoutState={layoutState}
@@ -262,12 +296,15 @@ const DataExplorer = props => {
         id="min-value-label"
         style={{
           float: 'left',
-          height: '40px',
-          width: "4%",
-          textAlign: 'right',
+          height: '45px',
+          width: "5%",
+          textAlign: 'center',
           fontSize: '1.2em',
-          paddingTop: '12px',
-          paddingRight: '10px'
+          paddingTop: '8px',
+          // paddingRight: '5px',
+          backgroundColor: 'black',
+          marginTop: '5px',
+          borderRadius: '5px 0 0 5px'
       }}>
       {legendLabel.minValue}
       </div>
@@ -280,12 +317,16 @@ const DataExplorer = props => {
         id="max-value-label"
         style={{
           float: 'left',
-          height: '40px',
+          height: '45px',
           width: "5%",
-          textAlign: 'left',
+          textAlign: 'center',
           fontSize: '1.2em',
-          paddingTop: '12px',
-          paddingLeft: '10px'
+          paddingTop: '8px',
+          // paddingLeft: '10px',
+          backgroundColor: 'black',
+          marginTop: '5px',
+          borderRadius: '0 5px 5px 0'
+
       }}>
       {legendLabel.maxValue}
       </div>
@@ -321,7 +362,7 @@ const DataExplorer = props => {
         textAlign: 'center',
         fontSize: '1.3em',
         height: '40px',
-        width: '5%',
+        width: '4%',
         marginTop: '10px',
         marginRight: '10px',
         borderRadius: '5px',
@@ -347,7 +388,7 @@ const DataExplorer = props => {
         height: '5%',
         width: '5%',
         marginTop: '5px',
-        marginLeft: '13%',
+        marginLeft: '15%',
         borderRadius: '5px',
         verticalAlign: 'middle',
         backgroundColor: layoutState.chartType === 'scatterplot' ? 'black' : 'lightgrey' ,
@@ -376,7 +417,7 @@ const DataExplorer = props => {
       }}
       onClick={e => changeChartType('simple-bar-chart')}
       />
-      <TiChartArea
+      {/* <TiChartArea
       style={{
         color: layoutState.chartType === 'area-chart' ? 'white' : null,
         float: 'left',
@@ -394,8 +435,9 @@ const DataExplorer = props => {
         padding: '2px',
         outline: 'none'
       }}
+      onClick={e => animateData(1000, defaultDataConfig.variableOptions)}
       onClick={e => changeChartType('area-chart')}
-      />
+      /> */}
 
 
 

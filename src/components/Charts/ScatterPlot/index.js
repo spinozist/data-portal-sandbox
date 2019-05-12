@@ -110,7 +110,7 @@ const ScatterPlot = props => {
             </Scatter>
             <Scatter 
               name={props.data.hoverField} 
-              data={props.hoverID ? dataArray.filter(e => e.name === props.hoverID) : null} fill={colors[numberOfBins-1]}
+              data={props.hoverID && dataArray ? dataArray.filter(e => e.name === props.hoverID) : null} fill={colors[numberOfBins-1]}
               >
                             {
                 dataArray ? dataArray.filter(e => e.name === props.hoverID).map((feature, index) => {
