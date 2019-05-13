@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Navbar, Button, Container, Row, Col, Dropdown } from 'react-bootstrap';
-import { TiChartArea, TiChartBar } from 'react-icons/ti';
+import { Container, Dropdown } from 'react-bootstrap';
+import { TiChartBar } from 'react-icons/ti';
 import { MdGrain, MdCompareArrows } from 'react-icons/md';
 // import GeoSelector from "../GeoSelector";
 import VarSelector from "../VarSelector";
@@ -23,15 +23,9 @@ const DataExplorer = props => {
 
   const geoOptions = dataConfig.map(configObject => configObject.name);
 
-  // console.log(geoOptions);
-
   const colorList = Object.keys(ColorMapObject);
 
   const [geography, setGeography] = useState(geoOptions[1]);
-
-  // const [min, setMin] = useState();
-
-  // const [max, setMax] = useState();
 
   const selectedDefaults = dataConfig.filter(configObject => configObject.name === geography);
 
@@ -87,31 +81,20 @@ const DataExplorer = props => {
     const maxValue = valueArray !== null ? Math.max(...valueArray) : null;
     const minValue = valueArray !== null ? Math.min(...valueArray) : null;
 
-    // console.log(minValue);
-    // console.log(maxValue);
-
     setLegendLabel({
       minValue: minValue,
       maxValue: maxValue,
     })
-
   }
 
   const setData = dataConfigObject => {
-    // console.log(url)
-
 
     API.getData(dataConfigObject.url)
       .then(res => {
-      // console.log(res.data.features);
 
       setHoverID(null);
 
-      // flicker();
-
       setDataState( {
-        // ...dataState,
-        // pass other data config values here insteade of dataState
         geography: geography,
         geojson: res.data.features,
         selectedVariable: dataConfigObject.defaultVariable,
@@ -122,8 +105,7 @@ const DataExplorer = props => {
         hoverField: dataConfigObject.hoverField,
         point: dataConfigObject.point
       });
-    })
-      .catch(err => console.log(err));
+    }).catch(err => console.log(err));
   }
 
   const handleHover = featureID => {
@@ -135,7 +117,6 @@ const DataExplorer = props => {
   }
 
   const handleVarChange = selectedVar => {
-    // console.log(selectedVar);
     setDataState({
       ...dataState,
       selectedVariable: selectedVar
@@ -150,35 +131,37 @@ const DataExplorer = props => {
     })
   }
 
-  //  
-  const animateData = (duration, incrementArray) => {
+  //  Rewrite for scatter plot only
+
+  // const animateData = (duration, incrementArray) => {
     
-    let incrementIndex = 0;
+  //   let incrementIndex = 0;
 
-    setInterval(() => {
+  //   setInterval(() => {
 
-      incrementIndex < incrementArray.length ?
+  //     incrementIndex < incrementArray.length ?
 
-        setDataState({
-          ...dataState,
-          selectedVariable: incrementArray[incrementIndex]
-        }) 
+  //       setDataState({
+  //         ...dataState,
+  //         selectedVariable: incrementArray[incrementIndex]
+  //       }) 
         
-        : incrementIndex = -1;
+  //       : incrementIndex = -1;
 
-      incrementIndex++
-    }, duration) 
-  }  
+  //     incrementIndex++
+  //   }, duration) 
+  // }  
 
   // For Fun :)
-  const flicker = () => {
-    setInterval(() => {
-      setLayout({
-      ...layoutState,
-      colorOpacity: Math.random()
-    })}, 50);
-    setTimeout(() => clearInterval(), 1000);
-  }
+
+  // const flicker = () => {
+  //   setInterval(() => {
+  //     setLayout({
+  //     ...layoutState,
+  //     colorOpacity: Math.random()
+  //   })}, 50);
+  //   setTimeout(() => clearInterval(), 1000);
+  // }
 
   const changeColorRamp = colorRampName => {
     setLayout({
@@ -186,7 +169,6 @@ const DataExplorer = props => {
     colorMap: colorRampName
     })
   }
-
 
   useEffect(() => setData(defaultDataConfig), [geography]);
   useEffect(() => changeLegendLabel(dataState), [dataState.selectedVariable]);
@@ -207,20 +189,22 @@ const DataExplorer = props => {
           color: 'white',
           padding: '20px',
           borderRadius: '10px 10px 0 0',
-          
         }}>
-          {geography ? <h4>{geography}</h4> : null}
-          <Dropdown style={{ float: 'center', marginTop: '15px'}}>
-        <Dropdown.Toggle variant="secondary" className="category-dropdown" id="dropdown-basic">
-          Change Data Category
-        </Dropdown.Toggle>
+        {geography ? <h4>{geography}</h4> : null}
 
-        <Dropdown.Menu
-          style={{
-            overflow: 'scroll',
-            maxHeight: '30vh'
-          }}>
-          {  dataConfig.map(dataObject => 
+        <Dropdown style={{ float: 'center', marginTop: '15px'}}>
+          
+          <Dropdown.Toggle variant="secondary" className="category-dropdown" id="dropdown-basic">
+            Change Data Category
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu
+            style={{
+              overflow: 'scroll',
+              maxHeight: '30vh'
+            }}>
+
+            {  dataConfig.map(dataObject => 
             <Dropdown.Item
               style={{
                 backgroundColor: dataObject.name === geography ? 'black' : null,
@@ -232,33 +216,33 @@ const DataExplorer = props => {
             >
               {dataObject.name}
             </Dropdown.Item>
-          )
-          }
-          {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+            )}
+
           </Dropdown.Menu>
+
         </Dropdown>
 
-        </div>
+      </div>
         <VarSelector
           currentSelection={dataState.selectedVariable}
           selectedGeo={geography}
           handleVarChange={handleVarChange}
           layoutState={layoutState} />
       </div>
+
       <div id="banner">Data ARC</div>
+
       {  layoutState.mapview ?
         <Map
-          onMouseOver={() => flicker()}
           handleHoverID={handleHover}
           data={dataState}
           layoutState={layoutState}
           hoverID={hoverID}
           changeLegendLabel={changeLegendLabel}
-          // loading={loading}
         />
         : null
       }
+
       {  layoutState.tableview ?
         <Table
           className="table-container"
@@ -268,6 +252,7 @@ const DataExplorer = props => {
         />
         : null
       }
+
       {  layoutState.chartview && layoutState.chartType === 'scatterplot' ?
         <ScatterPlot
           hoverID={hoverID} 
@@ -278,6 +263,7 @@ const DataExplorer = props => {
         />
         : null
       }
+
       {  layoutState.chartview && layoutState.chartType === 'simple-bar-chart' ?
         <SimpleBarChart
           hoverID={hoverID} 
@@ -288,6 +274,7 @@ const DataExplorer = props => {
         />
         : null
       }
+
       {  layoutState.chartview && layoutState.chartType === 'area-chart' ?
         <AreaChart
           hoverID={hoverID} 
@@ -323,8 +310,6 @@ const DataExplorer = props => {
             </Dropdown.Item>
           )
           }
-          {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
         </Dropdown.Menu>
       </Dropdown>
 
@@ -351,10 +336,12 @@ const DataExplorer = props => {
           : legendLabel.minValue
       }
       </div>
+
       <ColorRamp
         layoutState={layoutState}
         legendLabel={legendLabel}
       />
+
       <div 
         className="legend-value-label" 
         id="max-value-label"
@@ -398,7 +385,7 @@ const DataExplorer = props => {
       onClick={e => flipColorMap(layoutState.colorMapReverse)}
       />
 
-      {/* Icons */}
+      {/* Chart Icons */}
 
       <MdGrain
       id={layoutState.chartType === 'scatterplot' ? 'active-chart-button' : null }
@@ -462,9 +449,7 @@ const DataExplorer = props => {
       onClick={e => animateData(1000, defaultDataConfig.variableOptions)}
       onClick={e => changeChartType('area-chart')}
       /> */}
-
-
-
+      
     </Container>
   )
 };

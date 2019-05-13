@@ -50,7 +50,7 @@ const Table = props => {
     const indicatorArray = props.hoverID && tableData && tableSelectorField ? Object.keys(tableData[0].properties) : null
     const valueArray = props.hoverID && tableData && tableSelectorField ? Object.values(tableData[0].properties) : null
     
-    const dataTypeArray = valueArray ? valueArray.map(value => typeof value) : null;
+    // const dataTypeArray = valueArray ? valueArray.map(value => typeof value) : null;
     // console.log(indicatorArray);
     // console.log(dataTypeArray ? dataTypeArray : null);
 

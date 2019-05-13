@@ -116,7 +116,8 @@ const dataConfig = [
             'CCRPI_2017',
             'CCRPI_2016',
             'CCRPI_2015',
-            'CCRPI_2014'
+            'CCRPI_2014',
+            'CCRPI_2013'
         ],
         normalizerOptions: [],
         filterType: [],

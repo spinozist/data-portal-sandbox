@@ -1,5 +1,6 @@
-import React from 'react';
-import { ComposedChart, Brush, Bar, Area, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import React, { useState } from 'react';
+import { ComposedChart, Bar, Cell, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { Dropdown } from 'react-bootstrap';
 import colormap from 'colormap';
 import numeral from 'numeral';
 import './style.css';
@@ -7,6 +8,9 @@ import './style.css';
 
 
 const SimpleBarChart = props => {
+
+  const [ sortOrder, setSortOrder] = useState('lohi');
+
 
   const numberOfBins = props.layoutState.numberOfBins;
   const colorMap = props.layoutState.colorMap;
@@ -36,13 +40,12 @@ const SimpleBarChart = props => {
   const maxValue = valueArray !== null ? Math.max(...valueArray) : 'Value array not load yet';
   const minValue = valueArray !== null ? Math.min(...valueArray) : 'Value array not load yet';
 
-
   const dataArray = props.data.geojson ? props.data.geojson.map(feature => 
         ({
         x: feature.properties[props.data.selectedVariable],
         name: feature.properties[props.data.hoverField],
         })
-        ).sort((a,b) => a.x > b.x ? 1 : -1) : null;
+        ).sort(sortOrder === 'lohi' ? (a,b) => a.x > b.x ? 1 : -1 : (a,b) => a.x < b.x ? 1 : -1 ) : null;
 
   return (
     <div
@@ -80,7 +83,7 @@ const SimpleBarChart = props => {
               return <Cell 
                 key={`cell-${index}`} 
                 fill={color} 
-                stroke={props.hoverID && name === props.hoverID ? 'black' : null}
+                stroke={props.hoverID && name === props.hoverID ? 'black' : color}
                 strokeWidth={props.hoverID && name === props.hoverID ? 2 : null}
                 />
             }) : null
@@ -102,6 +105,43 @@ const SimpleBarChart = props => {
             } />
       </ComposedChart>
     </ResponsiveContainer>
+    <Dropdown 
+        style={{ 
+          float: 'center',
+          margin: '5px 0 0 10px'}}>
+        <Dropdown.Toggle variant="secondary" className="category-dropdown" id="dropdown-basic">
+          Sort Order
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu
+          style={{
+            overflow: 'scroll',
+            maxHeight: '30vh',
+          }}>
+            <Dropdown.Item
+              style={{
+                backgroundColor: sortOrder === 'lohi' ? 'black' : null,
+                color: sortOrder === 'lohi' ? 'white' : null,
+                marginLeft: '2%'
+              }} 
+              value='lohi' 
+              onClick={e => setSortOrder('lohi')}
+            >
+              Low-to-High
+            </Dropdown.Item>
+            <Dropdown.Item
+              style={{
+                backgroundColor: sortOrder === 'hilo' ? 'black' : null,
+                color: sortOrder === 'hilo' ? 'white' : null,
+                marginLeft: '2%'
+              }} 
+              value='hilo' 
+              onClick={e => setSortOrder('hilo')}
+            >
+              High-to-Low
+            </Dropdown.Item>
+        </Dropdown.Menu>
+        </Dropdown>
 
     </div>
   );

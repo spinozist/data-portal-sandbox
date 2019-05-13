@@ -50,7 +50,7 @@ const ScatterPlot = props => {
 
   const indicatorList = dataObject && props.data.geography ? dataObject[0].variableOptions : null;
 
-  console.log (indicatorList);  
+  // console.log (indicatorList);  
 
   return (
     <div
