@@ -52,7 +52,7 @@ const Table = props => {
     
     const dataTypeArray = valueArray ? valueArray.map(value => typeof value) : null;
     // console.log(indicatorArray);
-    console.log(dataTypeArray ? dataTypeArray : null);
+    // console.log(dataTypeArray ? dataTypeArray : null);
 
 
    const csvData = indicatorArray ? indicatorArray.map((indicator, index) => ({
