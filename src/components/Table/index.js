@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { ExportToCsv } from 'export-to-csv';
+import numeral from 'numeral';
 import colormap from 'colormap';
 import './style.css';
 
@@ -48,16 +49,19 @@ const Table = props => {
 
     const indicatorArray = props.hoverID && tableData && tableSelectorField ? Object.keys(tableData[0].properties) : null
     const valueArray = props.hoverID && tableData && tableSelectorField ? Object.values(tableData[0].properties) : null
-
+    
+    const dataTypeArray = valueArray ? valueArray.map(value => typeof value) : null;
     // console.log(indicatorArray);
-    // console.log(valueArray);
+    console.log(dataTypeArray ? dataTypeArray : null);
+
+
    const csvData = indicatorArray ? indicatorArray.map((indicator, index) => ({
        fieldName: indicator,
        value: valueArray[index]
    })) : null;
 
    
-   const buttonText = csvData ? 'Export Data to CSV' : 'Hover over map display data below...'
+   const buttonText = csvData ? 'Download Data as CSV' : 'Hover over map or chart to display data below...'
 
    const [buttonDialogue, setButtonDialogue] = useState(buttonText);
 
@@ -86,10 +90,10 @@ const Table = props => {
 
   const changeButtonDialogue = text => {
     setButtonDialogue(text);
-    setTimeout(e => setButtonDialogue(buttonText), 2000)
+    setTimeout(e => setButtonDialogue(buttonText), 3000)
   }
 
-  useEffect(() => setButtonDialogue(csvData ? 'Export Data to CSV' : 'Hover over map to display table below...'), [props.hoverID])
+  useEffect(() => setButtonDialogue(csvData ? 'Download Data as CSV' : 'Hover over map or chart to display table below...'), [props.hoverID])
 
 
 
@@ -102,7 +106,7 @@ const Table = props => {
             <Button
             id="data-export-button"
             variant="secondary"
-            onClick={e => !csvData ? changeButtonDialogue('Hover over map to select data for export...') : csvExporter.generateCsv(csvData, changeButtonDialogue('Data Downloaded')) }
+            onClick={e => !csvData ? changeButtonDialogue('Hover over map or chart to select data for export...') : csvExporter.generateCsv(csvData, changeButtonDialogue('Data Downloaded')) }
             style={{
                 width: '100%',
                 marginBottom: '10px'
@@ -129,6 +133,7 @@ const Table = props => {
                         {
                             indicatorArray ? indicatorArray.map((indicator, index) => {
                                 const indicatorLabel = indicator;
+                                const value = valueArray[index];
                                 // console.log(indicatorLabel + "[" + index + "]");
 
                                 // const value = valueArray[index];
@@ -148,7 +153,11 @@ const Table = props => {
                                             {indicatorLabel}
                                         </td>
                                         <td className="column-2">
-                                            {valueArray[index]}
+                                            {typeof value === 'number' ? 
+                                                value % 1 !== 0 ? 
+                                                numeral(value).format('0,0.00') 
+                                                : numeral(value).format('0,0')
+                                                : value}
                                         </td>
                                     </tr>
                                 )

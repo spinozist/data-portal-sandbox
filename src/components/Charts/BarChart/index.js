@@ -1,18 +1,7 @@
-// import React from "react";
-// import './style.css';
-
-// const ScatterPlot = props => (
-//   <div className="chart-container">
-//     <h3>This is where a chart should go.</h3>
-//   </div>
-// );
-
-// export default ScatterPlot;
-
-
 import React from 'react';
 import { ComposedChart, Brush, Bar, Area, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import colormap from 'colormap';
+import numeral from 'numeral';
 import './style.css';
 
 
@@ -65,7 +54,12 @@ const SimpleBarChart = props => {
           top: 30, right: 10, bottom: 5, left: 15,
         }}>
         <XAxis hide name={props.data.hoverField} dataKey="name" />
-        <Bar name={props.data.selectedVariable} dataKey={'x'} fill={colors[0]}>
+        <Bar 
+          name={props.data.selectedVariable} 
+          dataKey={'x'} 
+          fill={colors[0]}
+          onMouseEnter={point => props.handleHoverID(point.name)} 
+          >
           {
             dataArray ? dataArray.map((feature, index) => {
               
@@ -87,13 +81,25 @@ const SimpleBarChart = props => {
                 key={`cell-${index}`} 
                 fill={color} 
                 stroke={props.hoverID && name === props.hoverID ? 'black' : null}
-                strokeWidth={props.hoverID && name === props.hoverID ? 2 : null}/>
+                strokeWidth={props.hoverID && name === props.hoverID ? 2 : null}
+                />
             }) : null
           }
         </Bar>
         {/* <Area type="monotone" dataKey={'x'} fill="#8884d8" stroke="#8884d8" /> */}
         {/* <Brush dataKey="name" height={30} stroke="#8884d8" /> */}
-        <Tooltip cursor={{ strokeDasharray: '3 3' }} animationEasing={'ease-in-out'} />
+        <Tooltip
+          itemStyle={{ color: 'black' }}
+          style={{ borderRadius: '5px'}}
+          cursor={{ strokeDasharray: '3 3' }} 
+          animationEasing={'ease-in-out'}
+          formatter={ value => 
+            typeof value === 'number' ? 
+            value % 1 !== 0 ? 
+            numeral(value).format('0,0.00') 
+            : numeral(value).format('0,0')
+            : value
+            } />
       </ComposedChart>
     </ResponsiveContainer>
 

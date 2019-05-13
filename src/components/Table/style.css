@@ -26,6 +26,10 @@
     padding-left: 20px;
 }
 
+#data-export-button {
+    animation: shadow-pulse 1s 6;
+}
+
 
 
 /* #sel-var-row {

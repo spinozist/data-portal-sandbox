@@ -13,6 +13,7 @@ import API from "../../utils/API";
 import ColorMapObject from "../../utils/ColorMapObject";
 import dataConfig from "../../config/dataConfig";
 import ColorRamp from "../Map/Legends/ColorRamp";
+import numeral from 'numeral';
 import './style.css';
 
 
@@ -306,7 +307,13 @@ const DataExplorer = props => {
           marginTop: '5px',
           borderRadius: '5px 0 0 5px'
       }}>
-      {legendLabel.minValue}
+      { 
+        typeof legendLabel.minValue === 'number' ? 
+          legendLabel.minValue % 1 !== 0 ? 
+          numeral(legendLabel.minValue).format('0,0.00') 
+          : numeral(legendLabel.minValue).format('0,0')
+          : legendLabel.minValue
+      }
       </div>
       <ColorRamp
         layoutState={layoutState}
@@ -328,7 +335,13 @@ const DataExplorer = props => {
           borderRadius: '0 5px 5px 0'
 
       }}>
-      {legendLabel.maxValue}
+      { 
+        typeof legendLabel.maxValue === 'number' ? 
+          legendLabel.maxValue % 1 !== 0 ? 
+          numeral(legendLabel.maxValue).format('0,0.00') 
+          : numeral(legendLabel.maxValue).format('0,0')
+          : legendLabel.maxValue
+      }
       </div>
       <Dropdown style={{ float: 'left', padding: '10px' }}>
         <Dropdown.Toggle variant="secondary" id="dropdown-basic" >

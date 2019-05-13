@@ -1,10 +1,10 @@
 @keyframes shadow-pulse
 {
      0% {
-          box-shadow: 0 0 0 0px rgba(214, 27, 27, 0.6);
+          box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.35);
      }
      100% {
-          box-shadow: 0 0 0 40px rgba(214, 27, 27, 0);
+          box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
      }
 }
 
@@ -56,9 +56,9 @@
     /* overflow: scroll; */
 }
 
-.category-dropdown {
+/* .category-dropdown {
     animation: shadow-pulse 2s 6;
-}
+} */
 
 .legend-value-label {
     color: white;
