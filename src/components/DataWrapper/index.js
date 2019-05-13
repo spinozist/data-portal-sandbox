@@ -174,9 +174,16 @@ const DataExplorer = props => {
   useEffect(() => changeLegendLabel(dataState), [dataState.selectedVariable]);
 
   return (
-    <Container fluid className="data-wrapper" id="data-wrapper">
-      <div className="data-selector">
-        <div style={{
+    <Container
+      key={'main-container' + Date} 
+      fluid 
+      className="data-wrapper" 
+      id="data-wrapper">
+      <div 
+        key="data-selector"
+        className="data-selector">
+        <div 
+          style={{
           position: 'relative',
           bottom: '-10px',
           marginLeft: '3%',
@@ -192,13 +199,24 @@ const DataExplorer = props => {
         }}>
         {geography ? <h4>{geography}</h4> : null}
 
-        <Dropdown style={{ float: 'center', marginTop: '15px'}}>
+        <Dropdown 
+          key={'bs-category-dropdown'}
+          style={{ 
+            float: 'center', 
+            marginTop: '15px'
+            }}
+        >
           
-          <Dropdown.Toggle variant="secondary" className="category-dropdown" id="dropdown-basic">
+          <Dropdown.Toggle 
+            key={'bs-cat-dropdown-toggle'}
+            variant="secondary" 
+            className="category-dropdown" 
+            id="dropdown-basic">
             Change Data Category
           </Dropdown.Toggle>
 
           <Dropdown.Menu
+            key={'bs-cat-dropdown-menu'}
             style={{
               overflow: 'scroll',
               maxHeight: '30vh'
@@ -206,6 +224,7 @@ const DataExplorer = props => {
 
             {  dataConfig.map(dataObject => 
             <Dropdown.Item
+              key={'bs-cat-dropdown-item' + dataObject.name}
               style={{
                 backgroundColor: dataObject.name === geography ? 'black' : null,
                 color: dataObject.name === geography ? 'white' : null,
@@ -224,6 +243,7 @@ const DataExplorer = props => {
 
       </div>
         <VarSelector
+          key={'var-selector'}
           currentSelection={dataState.selectedVariable}
           selectedGeo={geography}
           handleVarChange={handleVarChange}
@@ -234,6 +254,7 @@ const DataExplorer = props => {
 
       {  layoutState.mapview ?
         <Map
+          key={"map-comp"}
           handleHoverID={handleHover}
           data={dataState}
           layoutState={layoutState}
@@ -245,6 +266,7 @@ const DataExplorer = props => {
 
       {  layoutState.tableview ?
         <Table
+          key={"table-comp"}
           className="table-container"
           hoverID={hoverID} 
           data={dataState}
@@ -255,6 +277,7 @@ const DataExplorer = props => {
 
       {  layoutState.chartview && layoutState.chartType === 'scatterplot' ?
         <ScatterPlot
+          key={'scatterplot'}
           hoverID={hoverID} 
           data={dataState}
           layoutState={layoutState}
@@ -266,6 +289,7 @@ const DataExplorer = props => {
 
       {  layoutState.chartview && layoutState.chartType === 'simple-bar-chart' ?
         <SimpleBarChart
+          key={'simple-bar-chart'}
           hoverID={hoverID} 
           data={dataState}
           layoutState={layoutState}
@@ -277,6 +301,7 @@ const DataExplorer = props => {
 
       {  layoutState.chartview && layoutState.chartType === 'area-chart' ?
         <AreaChart
+          
           hoverID={hoverID} 
           data={dataState}
           layoutState={layoutState}
@@ -449,7 +474,7 @@ const DataExplorer = props => {
       onClick={e => animateData(1000, defaultDataConfig.variableOptions)}
       onClick={e => changeChartType('area-chart')}
       /> */}
-      
+
     </Container>
   )
 };

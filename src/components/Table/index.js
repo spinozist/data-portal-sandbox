@@ -122,6 +122,8 @@ const Table = props => {
                         className="data-table"
                         id={"table-" +  tableSelectorField + "-" + props.hoverID}
                         key={tableSelectorField + "-" + props.hoverID}>
+                        <tbody>
+
                         {/* <tr className="header-row">
                             <th className="header-col-1">
                                 Field
@@ -157,12 +159,14 @@ const Table = props => {
                                                 value % 1 !== 0 ? 
                                                 numeral(value).format('0,0.00') 
                                                 : numeral(value).format('0,0')
-                                                : value}
+                                                : indicatorLabel === 'url' ? <a href={value} target='_blank' rel="noopener noreferrer">{value}</a> : value }
                                         </td>
                                     </tr>
                                 )
                             }) : null
                         }
+                        </tbody>
+
                     </table>
 
                 : null

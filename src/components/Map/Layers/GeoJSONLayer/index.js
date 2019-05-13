@@ -103,7 +103,7 @@ const GeoJSONLayer = props => {
           weight: 1,
         };  
         
-        console.log("This is a point")
+        // console.log("This is a point")
           return L.circleMarker(latlng, geojsonMarkerOptions )
                   .setRadius(5)
         } : null 

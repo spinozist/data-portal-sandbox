@@ -139,7 +139,7 @@ const Map = props => {
        
       <TileLayer
       // url='https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
-      url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+      url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
      
 

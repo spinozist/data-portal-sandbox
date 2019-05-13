@@ -50,14 +50,16 @@ const SimpleBarChart = props => {
   return (
     <div
       className="chart-container" >
-    <ResponsiveContainer height="100%" width="100%">
+    <ResponsiveContainer key={"rc-" + props.geography }height="100%" width="100%">
      <ComposedChart 
+        key={"cc-" + props.geography}
         data={dataArray}
         margin={{
           top: 30, right: 10, bottom: 5, left: 15,
         }}>
         <XAxis hide name={props.data.hoverField} dataKey="name" />
         <Bar 
+          key={"bar-" + props.data.selectedVariable}
           name={props.data.selectedVariable} 
           dataKey={'x'} 
           fill={colors[0]}
@@ -92,6 +94,7 @@ const SimpleBarChart = props => {
         {/* <Area type="monotone" dataKey={'x'} fill="#8884d8" stroke="#8884d8" /> */}
         {/* <Brush dataKey="name" height={30} stroke="#8884d8" /> */}
         <Tooltip
+          key={"tooltip-" + props.data.selectedVariable}
           itemStyle={{ color: 'black' }}
           style={{ borderRadius: '5px'}}
           cursor={{ strokeDasharray: '3 3' }} 
@@ -105,7 +108,8 @@ const SimpleBarChart = props => {
             } />
       </ComposedChart>
     </ResponsiveContainer>
-    <Dropdown 
+    <Dropdown
+        key={"sort-" + props.data.selectedVariable} 
         style={{ 
           float: 'center',
           margin: '5px 0 0 10px'}}>
@@ -114,11 +118,13 @@ const SimpleBarChart = props => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu
+          key={"sortmenu-" + props.data.selectedVariable} 
           style={{
             overflow: 'scroll',
             maxHeight: '30vh',
           }}>
             <Dropdown.Item
+              key={"sort-" + props.data.selectedVariable + "lohi"} 
               style={{
                 backgroundColor: sortOrder === 'lohi' ? 'black' : null,
                 color: sortOrder === 'lohi' ? 'white' : null,
@@ -130,6 +136,7 @@ const SimpleBarChart = props => {
               Low-to-High
             </Dropdown.Item>
             <Dropdown.Item
+              key={"sort-" + props.data.selectedVariable + "hilo"} 
               style={{
                 backgroundColor: sortOrder === 'hilo' ? 'black' : null,
                 color: sortOrder === 'hilo' ? 'white' : null,
