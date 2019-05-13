@@ -2,7 +2,7 @@ import React from "react";
 // import API from "../../utils/API";
 import colormap from 'colormap';
 
-const legendWidth = 33;
+const legendWidth = 25;
 
 const ColorRamp = props => {
 

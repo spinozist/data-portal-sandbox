@@ -1,5 +1,7 @@
 import React from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { Dropdown } from 'react-bootstrap';
+import dataConfig from "../../../config/dataConfig";
 import colormap from 'colormap';
 import numeral from 'numeral';
 import './style.css';
@@ -36,7 +38,6 @@ const ScatterPlot = props => {
   const maxValue = valueArray !== null ? Math.max(...valueArray) : 'Value array not load yet';
   const minValue = valueArray !== null ? Math.min(...valueArray) : 'Value array not load yet';
 
-
   const dataArray = props.data.geojson ? props.data.geojson.map(feature => 
     ({
       x: feature.properties[props.data.selectedVariable],
@@ -44,6 +45,12 @@ const ScatterPlot = props => {
       name: feature.properties[props.data.hoverField]
     })
     ) : null;
+
+  const dataObject = dataConfig.filter(item => item.name === props.data.geography);
+
+  const indicatorList = dataObject && props.data.geography ? dataObject[0].variableOptions : null;
+
+  console.log (indicatorList);  
 
   return (
     <div
@@ -151,6 +158,36 @@ const ScatterPlot = props => {
           </Scatter>
         </ScatterChart>
       </ResponsiveContainer>
+      <Dropdown 
+        style={{ 
+          float: 'center',
+          margin: '5px 0 0 10px'}}>
+        <Dropdown.Toggle variant="secondary" className="category-dropdown" id="dropdown-basic">
+          Change Y Variable
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu
+          style={{
+            overflow: 'scroll',
+            maxHeight: '30vh',
+          }}>
+          {  indicatorList ? indicatorList.map(option => 
+            <Dropdown.Item
+              style={{
+                backgroundColor: option === props.data.selectedSecondVar ? 'black' : null,
+                color: option === props.data.selectedSecondVar ? 'white' : null,
+                marginLeft: '2%'
+              }} 
+              value={option} 
+              onClick={e => props.handleSecVarChange(option)}
+            >
+              {option}
+            </Dropdown.Item>
+          ) : null
+          }
+        </Dropdown.Menu>
+        </Dropdown>
+
     </div>
   );
 };

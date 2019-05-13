@@ -142,6 +142,14 @@ const DataExplorer = props => {
     })
   }
 
+  const handleSecVarChange = selectedVar => {
+    // console.log(selectedVar);
+    setDataState({
+      ...dataState,
+      selectedSecondVar: selectedVar
+    })
+  }
+
   //  
   const animateData = (duration, incrementArray) => {
     
@@ -266,6 +274,7 @@ const DataExplorer = props => {
           data={dataState}
           layoutState={layoutState}
           handleHoverID={handleHover}
+          handleSecVarChange={handleSecVarChange}
         />
         : null
       }
@@ -291,6 +300,33 @@ const DataExplorer = props => {
       }
 
       {/* Color Ramp and Controls */}
+
+      <Dropdown style={{ float: 'left', padding: '10px' }}>
+        <Dropdown.Toggle variant="secondary" id="dropdown-basic" >
+          Change Color Ramp
+        </Dropdown.Toggle>
+        <Dropdown.Menu
+          style={{
+            overflow: 'scroll',
+            maxHeight: '30vh',
+          }}>
+          {  colorList.map(colorName => 
+            <Dropdown.Item
+              style={{
+                backgroundColor: colorName === layoutState.colorMap ? 'black' : null,
+                color: colorName === layoutState.colorMap ? 'white' : null,
+              }} 
+              value={colorName} 
+              onClick={e => changeColorRamp(colorName)}
+            >
+              {colorName}
+            </Dropdown.Item>
+          )
+          }
+          {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+        </Dropdown.Menu>
+      </Dropdown>
 
       <div 
         className="legend-value-label" 
@@ -343,32 +379,7 @@ const DataExplorer = props => {
           : legendLabel.maxValue
       }
       </div>
-      <Dropdown style={{ float: 'left', padding: '10px' }}>
-        <Dropdown.Toggle variant="secondary" id="dropdown-basic" >
-          Change Color Ramp
-        </Dropdown.Toggle>
-        <Dropdown.Menu
-          style={{
-            overflow: 'scroll',
-            maxHeight: '30vh',
-          }}>
-          {  colorList.map(colorName => 
-            <Dropdown.Item
-              style={{
-                backgroundColor: colorName === layoutState.colorMap ? 'black' : null,
-                color: colorName === layoutState.colorMap ? 'white' : null,
-              }} 
-              value={colorName} 
-              onClick={e => changeColorRamp(colorName)}
-            >
-              {colorName}
-            </Dropdown.Item>
-          )
-          }
-          {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
-        </Dropdown.Menu>
-      </Dropdown>
+
       <MdCompareArrows
       style={{
         float: 'left',
@@ -377,7 +388,7 @@ const DataExplorer = props => {
         height: '40px',
         width: '4%',
         marginTop: '10px',
-        marginRight: '10px',
+        marginLeft: '10px',
         borderRadius: '5px',
         verticalAlign: 'middle',
         backgroundColor: 'lightgrey',
@@ -401,7 +412,7 @@ const DataExplorer = props => {
         height: '5%',
         width: '5%',
         marginTop: '5px',
-        marginLeft: '15%',
+        marginLeft: '30%',
         borderRadius: '5px',
         verticalAlign: 'middle',
         backgroundColor: layoutState.chartType === 'scatterplot' ? 'black' : 'lightgrey' ,
