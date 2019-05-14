@@ -47,6 +47,8 @@ const DataExplorer = props => {
     maxValue: null,
   });
 
+  const [spinnerState, setSpinnerState] = useState(false);
+
 
   const [dataState, setDataState] = useState({
     geojson: null,
@@ -260,6 +262,7 @@ const DataExplorer = props => {
           layoutState={layoutState}
           hoverID={hoverID}
           changeLegendLabel={changeLegendLabel}
+          spinnerState={spinnerState}
         />
         : null
       }
@@ -313,7 +316,7 @@ const DataExplorer = props => {
 
       {/* Color Ramp and Controls */}
 
-      <Dropdown style={{ float: 'left', padding: '10px' }}>
+      <Dropdown style={{ float: 'left', padding: '10px', marginLeft: '2%' }}>
         <Dropdown.Toggle variant="secondary" id="dropdown-basic" >
           Change Color Ramp
         </Dropdown.Toggle>
@@ -343,7 +346,7 @@ const DataExplorer = props => {
         id="min-value-label"
         style={{
           float: 'left',
-          height: '45px',
+          height: '5%',
           width: "5%",
           textAlign: 'center',
           fontSize: '1.2em',
@@ -372,7 +375,7 @@ const DataExplorer = props => {
         id="max-value-label"
         style={{
           float: 'left',
-          height: '45px',
+          height: '5%',
           width: "5%",
           textAlign: 'center',
           fontSize: '1.2em',

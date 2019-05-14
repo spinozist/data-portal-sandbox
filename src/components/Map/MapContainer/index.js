@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-// import { Spinner } from 'react-bootstrap';
-import { Map as LeafletMap, TileLayer, LayersControl, ZoomControl } from 'react-leaflet';
+import { Map as LeafletMap, TileLayer, LayersControl, ZoomControl, ImageOverlay } from 'react-leaflet';
 import GeoJSONLayer from '../Layers/GeoJSONLayer';
 import OverlayLayer from '../Layers/OverlayLayer';
+// import Loader from 'react-loader-spinner';
 import API from "../../../utils/API";
-// import GACounties from "../../../config/overlayLayers.json"
 
 const Map = props => {
 
@@ -85,8 +84,23 @@ const Map = props => {
     >
         <ZoomControl position="topright" />
 
+
+
       { props.data.geojson ?
        <GeoJSONLayer {...props}/> : null }
+
+      {/* <ImageOverlay
+        url={
+        <Loader 
+          type="Puff"
+          color="#00BFFF"
+          height="100"	
+          width="100"
+      />}
+      bounds={[[34, -84.5], [33.6, -84.1]]} 
+      attribution={'react-loader-spinner'}
+      opacity={1}
+      /> */}
 
     <LayersControl position="topleft">
       <LayersControl.BaseLayer name="OpenStreetMap Dark">
