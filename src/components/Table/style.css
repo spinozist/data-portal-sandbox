@@ -6,6 +6,7 @@
     /* background-color: blanchedalmond; */
     /* border: 2px solid black; */
     overflow: auto;
+    overflow-x: hidden;
     font-size: .9em;
 }
 

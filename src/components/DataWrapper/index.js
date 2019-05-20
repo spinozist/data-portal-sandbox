@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Dropdown } from 'react-bootstrap';
-import { TiChartBar } from 'react-icons/ti';
+import { TiChartBar, TiChartArea } from 'react-icons/ti';
 import { MdGrain, MdCompareArrows } from 'react-icons/md';
 // import GeoSelector from "../GeoSelector";
 import VarSelector from "../VarSelector";
@@ -220,8 +220,8 @@ const DataExplorer = props => {
           <Dropdown.Menu
             key={'bs-cat-dropdown-menu'}
             style={{
-              overflow: 'scroll',
-              maxHeight: '30vh'
+              overflowY: 'scroll',
+              maxHeight: '30vh',
             }}>
 
             {  dataConfig.map(dataObject => 
@@ -474,7 +474,7 @@ const DataExplorer = props => {
         padding: '2px',
         outline: 'none'
       }}
-      onClick={e => animateData(1000, defaultDataConfig.variableOptions)}
+      onClick={e => animateData(2000, defaultDataConfig.variableOptions)}
       onClick={e => changeChartType('area-chart')}
       /> */}
 
